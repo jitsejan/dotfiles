@@ -1,53 +1,30 @@
-# ~/.config/starship.toml
-
-"$schema" = "https://starship.rs/config-schema.json"
+"$schema" = 'https://starship.rs/config-schema.json'
+command_timeout = 500
 
 format = """
-[](fg:#a3aed2)\
 [](bg:#334d7e fg:#1e1e2e)\
 $directory\
 [](fg:#334d7e bg:#046b1f)\
-${custom.git_server}\
 $git_branch\
 $git_status\
-[](fg:#046b1f bg:#1e1e2e)\
-$cmd_duration\
-$custom.rye\
-$custom.uv\
-$custom.python_project\
+[](fg:#046b1f bg:#3b3b3b)\
+${custom.python_project}\
 $python\
-$time\
+${custom.rye}\
+${custom.uv}\
+[](fg:#3b3b3b bg:#1e1e2e)\
 $line_break\
 $character"""
 
 right_format = """
-$username\
-$hostname\
+$cmd_duration\
+$time\
 """
 
-[username]
-style_user = "bold fg:#82aaff"
-show_always = false
-format = "[$user]($style)"
-
-[hostname]
-ssh_only = true
-trim_at = "-"
-format = "[@$hostname]($style)"
-style = "fg:#5c6370 bold"
-
 [directory]
-style = "bg:#334d7e fg:#ffffff"
-format = " [$path]($style)"
 truncation_length = 5
-truncation_symbol = "…/"
-home_symbol = "~"
-
-[directory.substitutions]
-"Documents" = ""
-"Downloads" = ""
-"Music" = ""
-"Pictures" = ""
+style = "bg:#334d7e fg:#ffffff"
+format = "[ $path ]($style)"
 
 [git_branch]
 symbol = ""
@@ -56,37 +33,20 @@ format = '[ $symbol $branch ]($style)'
 
 [git_status]
 style = "bg:#046b1f fg:#ffffff"
-format = '[ $all_status$ahead_behind ]($style)'
-conflicted = "⚔️ "
-ahead = "⇡${count} "
-behind = "⇣${count} "
-diverged = "⇕⇡${ahead_count} ⇣${behind_count} "
-untracked = " ${count} "
-stashed = "📦 "
-modified = " ${count} "
-staged = " ${count} "
-deleted = " ${count} "
+format = '[$all_status$ahead_behind]($style)'
 
-[cmd_duration]
-min_time = 500
-format = " [ $duration]($style)"
-style = "fg:#83769c"
-
-[time]
-disabled = false
-time_format = "%H:%M:%S"
-format = " [$time]($style)"
-style = "fg:#22da6e"
-
-[character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[❯](bold red)"
-vicmd_symbol = "[❮](bold yellow)"
+[custom.python_project]
+command = "grep -m1 '^name' pyproject.toml | cut -d '\"' -f2"
+when = 'test -f pyproject.toml'
+format = '[ 📦 $output ]($style)'
+style = "bg:#3b3b3b fg:#00cccc"
+ignore_timeout = true
 
 [python]
-format = '[ ($version)]($style) [$virtualenv]($style)'
-style = 'fg:#D4E157'
-pyenv_version_name = true
+symbol = ""
+style = "bg:#3b3b3b fg:#e157c3"
+format = '[ $symbol ${version} (${virtualenv}) ]($style)'
+pyenv_version_name = false
 detect_extensions = ["py"]
 detect_files = [
   "pyproject.toml",
@@ -94,37 +54,33 @@ detect_files = [
   "setup.py",
   "Pipfile",
   ".python-version",
-  "rye.lock"
+  "rye.lock",
+  "uv.lock",
+  ".venv"
 ]
-
-[custom.git_server]
-command = """
-GIT_REMOTE=$(git ls-remote --get-url 2> /dev/null)
-if [[ "$GIT_REMOTE" =~ github ]]; then echo ""
-elif [[ "$GIT_REMOTE" =~ gitlab ]]; then echo ""
-elif [[ "$GIT_REMOTE" =~ bitbucket ]]; then echo ""
-else echo ""
-fi
-"""
-when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
-style = "bg:#046b1f fg:#ffffff"
-format = '[ $output ]($style)'
-ignore_timeout = true
+python_binary = ["./.venv/bin/python3", "python3", "python"]
 
 [custom.rye]
-command = "rye show --python-path 2>/dev/null | sed -n 's/.*Python \\(.*\\)/\\1/p'"
-when = "test -f rye.lock"
-format = '[🍞 Rye $output]($style)'
-style = 'fg:#ffa500'
+command = 'rye version 2>/dev/null | awk "{print \\$2}"'
+when = 'test -f rye.lock'
+format = '[ 🍞 Rye v$output ]($style)'
+style = "bg:#3b3b3b fg:#ffa500"
+ignore_timeout = true
 
 [custom.uv]
-command = "uv --version | awk '{print $2}'"
-when = "test -f uv.lock"
-format = '[⚡ uv $output]($style)'
-style = 'fg:bright-blue'
+command = 'uv --version | head -n1 | awk "{print \$2}"'
+when = 'test -f uv.lock'
+format = '[ ⚡ uv v$output ]($style)'
+style = "bg:#3b3b3b fg:bright-blue"
+ignore_timeout = true
 
-[custom.python_project]
-command = "grep -m1 '^name' pyproject.toml | cut -d '\"' -f2"
-when = "test -f pyproject.toml"
-format = '[📦 $output]($style)'
-style = 'fg:cyan'
+[time]
+disabled = false
+format = '[ $time ]($style)'
+time_format = "%H:%M:%S"
+style = "fg:#22da6e"
+
+[cmd_duration]
+min_time = 100
+format = '[ ⏱ $duration ]($style)'
+style = "fg:#cccccc"

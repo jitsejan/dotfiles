@@ -14,5 +14,4 @@ if ! command -v rye &>/dev/null; then
 fi
 
 # Optionally install common tools
-python3 -m pip install --user pipx
 pipx install black ruff isort pyright
