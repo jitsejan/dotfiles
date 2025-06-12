@@ -9,14 +9,12 @@ $git_branch\
 $git_status\
 [](fg:#046b1f bg:#3b3b3b)\
 ${custom.python_project}\
-$python\
-${custom.rye}\
-${custom.uv}\
 [](fg:#3b3b3b bg:#1e1e2e)\
 $line_break\
 $character"""
 
 right_format = """
+$python\
 $cmd_duration\
 $time\
 """
@@ -27,7 +25,7 @@ style = "bg:#334d7e fg:#ffffff"
 format = "[ $path ]($style)"
 
 [git_branch]
-symbol = ""
+symbol = ""
 style = "bg:#046b1f fg:#ffffff"
 format = '[ $symbol $branch ]($style)'
 
@@ -38,15 +36,17 @@ format = '[$all_status$ahead_behind]($style)'
 [custom.python_project]
 command = "grep -m1 '^name' pyproject.toml | cut -d '\"' -f2"
 when = 'test -f pyproject.toml'
-format = '[ 📦 $output ]($style)'
+format = '[  $output ]($style)'
 style = "bg:#3b3b3b fg:#00cccc"
 ignore_timeout = true
 
 [python]
 symbol = ""
-style = "bg:#3b3b3b fg:#e157c3"
-format = '[ $symbol ${version} (${virtualenv}) ]($style)'
-pyenv_version_name = false
+style = "fg:#ffa500"
+format = '[ $symbol ]($symbol_style)[${version} ]($version_style)[${virtualenv}]($virtualenv_style)'
+symbol_style = "fg:#ffa500"
+version_style = "fg:#d4e157"
+virtualenv_style = "fg:#00cccc"
 detect_extensions = ["py"]
 detect_files = [
   "pyproject.toml",
@@ -64,14 +64,14 @@ python_binary = ["./.venv/bin/python3", "python3", "python"]
 command = 'rye version 2>/dev/null | awk "{print \\$2}"'
 when = 'test -f rye.lock'
 format = '[ 🍞 Rye v$output ]($style)'
-style = "bg:#3b3b3b fg:#ffa500"
+style = "fg:#ffa500"
 ignore_timeout = true
 
 [custom.uv]
 command = 'uv --version | head -n1 | awk "{print \$2}"'
 when = 'test -f uv.lock'
 format = '[ ⚡ uv v$output ]($style)'
-style = "bg:#3b3b3b fg:bright-blue"
+style = "fg:bright-blue"
 ignore_timeout = true
 
 [time]
