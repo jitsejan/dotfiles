@@ -41,12 +41,7 @@ style = "bg:#3b3b3b fg:#00cccc"
 ignore_timeout = true
 
 [python]
-symbol = ""
-style = "fg:#ffa500"
-format = '[ $symbol ]($symbol_style)[${version} ]($version_style)[${virtualenv}]($virtualenv_style)'
-symbol_style = "fg:#ffa500"
-version_style = "fg:#d4e157"
-virtualenv_style = "fg:#00cccc"
+format = '[](fg:#ffa500)[ ${version}](fg:#d4e157)[ ${virtualenv}](fg:#00cccc)'
 detect_extensions = ["py"]
 detect_files = [
   "pyproject.toml",
