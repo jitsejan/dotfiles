@@ -13,7 +13,6 @@ else
   exit 1
 fi
 
-./scripts/install_fonts.sh || true
 ./scripts/install_python_tools.sh || true
 ./scripts/install_apps.sh || true
 
@@ -21,5 +20,6 @@ echo "🔗 Symlinking configs..."
 mkdir -p ~/.config
 ln -sf "$PWD/.config/kitty" ~/.config/kitty
 ln -sf "$PWD/.config/starship.toml" ~/.config/starship.toml
+ln -sf "$PWD/.config/fish" ~/.config/fish
 
 echo "✅ Dotfiles setup complete!"

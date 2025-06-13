@@ -7,5 +7,6 @@ if ! command -v brew &>/dev/null; then
 fi
 
 brew update
-brew bundle --file="$PWD/../Brewfile"
+echo $PWD;
+brew bundle --file="$PWD/Brewfile"
 
