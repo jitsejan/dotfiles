@@ -15,6 +15,7 @@ fi
 
 ./scripts/install_python_tools.sh || true
 ./scripts/install_apps.sh || true
+./scripts/install_whisperx.sh || true
 
 echo "🔗 Symlinking configs..."
 mkdir -p ~/.config
