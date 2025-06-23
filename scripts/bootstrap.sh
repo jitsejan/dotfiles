@@ -13,6 +13,17 @@ else
   exit 1
 fi
 
+# Make Fish the default shell
+FISH_PATH="$(which fish)"
+if ! grep -Fxq "$FISH_PATH" /etc/shells; then
+  echo "$FISH_PATH" | sudo tee -a /etc/shells
+fi
+
+if [ "$SHELL" != "$FISH_PATH" ]; then
+  chsh -s "$FISH_PATH"
+  echo "🐟 Default shell set to $FISH_PATH"
+fi
+
 ./scripts/install_python_tools.sh || true
 ./scripts/install_apps.sh || true
 
