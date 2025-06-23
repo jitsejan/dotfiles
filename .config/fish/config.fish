@@ -1,3 +1,5 @@
+set -gx PATH /opt/homebrew/bin $PATH
+
 # Aliases
 alias cat="bat"
 alias cd="z"
