@@ -17,6 +17,7 @@ brew "bat"          # cat replacement
 brew "ripgrep"      # grep replacement
 brew "fd"           # find replacement
 brew "jq"           # JSON processor
+brew "eza"          # ls replacement
 
 # Development Applications
 cask "visual-studio-code"
