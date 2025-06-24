@@ -13,19 +13,21 @@ else
   exit 1
 fi
 
-# Make Fish the default shell
+# Make Fish the default shell if not already
 FISH_PATH="$(which fish)"
-if ! grep -Fxq "$FISH_PATH" /etc/shells; then
-  echo "$FISH_PATH" | sudo tee -a /etc/shells
-fi
+CURRENT_SHELL="$(dscl . -read ~/ UserShell | awk '{print $2}')"
 
-if [ "$SHELL" != "$FISH_PATH" ]; then
+if [[ "$CURRENT_SHELL" != "$FISH_PATH" ]]; then
+  echo "💡 Changing login shell to: $FISH_PATH"
+  sudo sh -c "echo $FISH_PATH >> /etc/shells"
   chsh -s "$FISH_PATH"
-  echo "🐟 Default shell set to $FISH_PATH"
+else
+  echo "✅ Fish is already your login shell"
 fi
 
 ./scripts/install_python_tools.sh || true
 ./scripts/install_apps.sh || true
+./scripts/setup_obsidian.sh || true
 
 echo "🔗 Symlinking configs..."
 mkdir -p ~/.config
