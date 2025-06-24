@@ -10,6 +10,7 @@ brew "jq"
 brew "gh"
 brew "pipx"
 brew "node" 
+brew "dockutil"
 
 cask "visual-studio-code"
 cask "bruno"
