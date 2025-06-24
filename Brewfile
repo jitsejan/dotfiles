@@ -1,23 +1,37 @@
-brew "starship"
+# Shell & Terminal
 brew "fish"
+brew "starship"
+cask "kitty"
+
+# Core Development Tools
 brew "git"
-brew "zoxide"
-brew "fzf"
-brew "bat"
-brew "ripgrep"
-brew "fd"
-brew "jq"
 brew "gh"
+brew "node"
 brew "pipx"
-brew "node" 
 brew "dockutil"
 
+# Command Line Utilities
+brew "zoxide"       # cd replacement
+brew "fzf"          # fuzzy finder
+brew "bat"          # cat replacement
+brew "ripgrep"      # grep replacement
+brew "fd"           # find replacement
+brew "jq"           # JSON processor
+
+# Development Applications
 cask "visual-studio-code"
 cask "bruno"
-cask "rectangle"
-cask "font-jetbrains-mono-nerd-font"
-cask "kitty"
-cask "chatgpt"
+
+# Productivity & Utilities
+cask "rectangle"            # window management
+cask "obsidian"            # note taking
+
+# Browsers
 cask "google-chrome"
 cask "microsoft-edge"
-cask "obsidian"
+
+# AI Tools
+cask "chatgpt"
+
+# Fonts
+cask "font-jetbrains-mono-nerd-font"
