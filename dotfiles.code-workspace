@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "workbench.colorTheme": "Monokai",
+    "editor.fontSize": 12,
+    "editor.tabSize": 4,
+    "terminal.integrated.fontFamily": "JetBrains Mono"
+  }
+}
