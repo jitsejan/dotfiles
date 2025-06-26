@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 echo "🚀 Bootstrapping your dev environment..."
 
@@ -19,8 +19,25 @@ fi
 
 echo "🔗 Symlinking configs..."
 mkdir -p ~/.config
-ln -sf "$PWD/.config/kitty" ~/.config/kitty
-ln -sf "$PWD/.config/starship.toml" ~/.config/starship.toml
-ln -sf "$PWD/.config/fish" ~/.config/fish
+
+link_config() {
+  local src=$1
+  local dest=$2
+  echo "  → Linking $src → $dest"
+  ln -sf "$PWD/$src" "$dest"
+}
+
+link_config ".config/kitty"        "$HOME/.config/kitty"
+link_config ".config/fish"         "$HOME/.config/fish"
+link_config ".config/starship.toml" "$HOME/.config/starship.toml"
+
+# Optional: Zed editor config
+ZED_DEST="$HOME/Library/Application Support/dev.zed.Zed/settings.json"
+ZED_SRC=".config/zed/settings.json"
+if [[ -f "$ZED_SRC" ]]; then
+  mkdir -p "$(dirname "$ZED_DEST")"
+  echo "  → Linking $ZED_SRC → $ZED_DEST"
+  ln -sf "$PWD/$ZED_SRC" "$ZED_DEST"
+fi
 
 echo "✅ Dotfiles setup complete!"
