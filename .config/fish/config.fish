@@ -7,6 +7,7 @@ alias find="fd"
 alias ..="cd .."
 alias ...="cd ../.."
 alias please="sudo"
+alias zed="open -a Zed"
 
 # Set prompt
 starship init fish | source
