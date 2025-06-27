@@ -11,6 +11,8 @@ brew "pipx"
 brew "dockutil"
 brew "uv"
 brew "awscli"
+brew "google-cloud-sdk"
+brew "databricks"
 
 # Command Line Utilities
 brew "zoxide"       # cd replacement
