@@ -10,6 +10,7 @@ brew "node"
 brew "pipx"
 brew "dockutil"
 brew "uv"
+brew "awscli"
 
 # Command Line Utilities
 brew "zoxide"       # cd replacement
