@@ -9,6 +9,7 @@ brew "gh"
 brew "node"
 brew "pipx"
 brew "dockutil"
+brew "uv"
 
 # Command Line Utilities
 brew "zoxide"       # cd replacement
