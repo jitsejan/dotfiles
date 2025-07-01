@@ -1,18 +1,22 @@
+# Taps
+tap "databricks/tap"
+
 # Shell & Terminal
 brew "fish"
 brew "starship"
 cask "kitty"
 
 # Core Development Tools
-brew "git"
+brew "awscli"
+brew "databricks"
+brew "dockutil"
 brew "gh"
+brew "git"
+brew "kubectl"
 brew "node"
 brew "pipx"
-brew "dockutil"
 brew "uv"
-brew "awscli"
-brew "google-cloud-sdk"
-brew "databricks"
+cask "google-cloud-sdk"
 
 # Command Line Utilities
 brew "zoxide"       # cd replacement
@@ -27,6 +31,7 @@ brew "eza"          # ls replacement
 cask "visual-studio-code"
 cask "bruno"
 cask "pycharm"
+cask "lens"
 
 # Productivity & Utilities
 cask "rectangle"            # window management
