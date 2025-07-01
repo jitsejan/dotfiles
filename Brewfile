@@ -13,6 +13,7 @@ brew "uv"
 brew "awscli"
 brew "google-cloud-sdk"
 brew "databricks"
+brew "kubectl"
 
 # Command Line Utilities
 brew "zoxide"       # cd replacement
