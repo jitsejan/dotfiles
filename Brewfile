@@ -28,6 +28,7 @@ brew "eza"          # ls replacement
 cask "visual-studio-code"
 cask "bruno"
 cask "pycharm"
+cask "lens"
 
 # Productivity & Utilities
 cask "rectangle"            # window management
