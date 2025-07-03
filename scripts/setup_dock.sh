@@ -43,6 +43,7 @@ dockutil --add '' --type spacer --section apps --no-restart
 dockutil --add "/Applications/Google Chrome.app" --no-restart
 dockutil --add "/Applications/Microsoft Edge.app" --no-restart
 dockutil --add "/Applications/ChatGPT.app" --no-restart
+dockutil --add "/Applications/Claude.app" --no-restart
 dockutil --add "/Applications/Safari.app" --no-restart
 dockutil --add '' --type spacer --section apps --no-restart
 

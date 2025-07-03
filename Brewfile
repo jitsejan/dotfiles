@@ -44,6 +44,7 @@ cask "microsoft-edge"
 
 # AI Tools
 cask "chatgpt"
+cask "claude"
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
