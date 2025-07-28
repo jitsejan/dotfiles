@@ -45,5 +45,8 @@ cask "microsoft-edge"
 # AI Tools
 cask "chatgpt"
 
+# Document Processing
+cask "mactex"
+
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
