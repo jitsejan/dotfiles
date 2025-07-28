@@ -44,6 +44,7 @@ cask "microsoft-edge"
 
 # AI Tools
 cask "chatgpt"
+cask "claude"
 
 # Document Processing
 cask "mactex"
