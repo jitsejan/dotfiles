@@ -29,10 +29,11 @@ brew "jq"           # JSON processor
 brew "eza"          # ls replacement
 
 # Development Applications
-cask "visual-studio-code"
 cask "bruno"
-cask "pycharm"
+cask "cursor"
 cask "lens"
+cask "pycharm"
+cask "visual-studio-code"
 
 # Productivity & Utilities
 cask "rectangle"            # window management
