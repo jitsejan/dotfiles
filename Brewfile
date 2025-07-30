@@ -31,6 +31,7 @@ brew "eza"          # ls replacement
 # Development Applications
 cask "bruno"
 cask "cursor"
+cask "drawio"
 cask "lens"
 cask "pycharm"
 cask "visual-studio-code"
