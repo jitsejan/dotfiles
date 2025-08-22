@@ -27,10 +27,12 @@ brew "ripgrep"      # grep replacement
 brew "fd"           # find replacement
 brew "jq"           # JSON processor
 brew "eza"          # ls replacement
+brew "duckdb"       # analytical SQL database
 
 # Development Applications
 cask "bruno"
 cask "cursor"
+cask "datagrip"
 cask "drawio"
 cask "lens"
 cask "pycharm"
