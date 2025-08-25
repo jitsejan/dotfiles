@@ -20,13 +20,14 @@ brew "uv"
 cask "google-cloud-sdk"
 
 # Command Line Utilities
-brew "zoxide"       # cd replacement
-brew "fzf"          # fuzzy finder
 brew "bat"          # cat replacement
-brew "ripgrep"      # grep replacement
-brew "fd"           # find replacement
-brew "jq"           # JSON processor
 brew "eza"          # ls replacement
+brew "fd"           # find replacement
+brew "fzf"          # fuzzy finder
+brew "jq"           # JSON processor
+brew "ripgrep"      # grep replacement
+brew "tree"         # directory tree display
+brew "zoxide"       # cd replacement
 
 # Development Applications
 cask "bruno"
