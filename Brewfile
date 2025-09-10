@@ -39,6 +39,7 @@ cask "visual-studio-code"
 # Productivity & Utilities
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
+cask "forklift"            # file manager
 
 # Browsers
 cask "google-chrome"
@@ -47,6 +48,7 @@ cask "microsoft-edge"
 # AI Tools
 cask "chatgpt"
 cask "claude"
+brew "codex"
 
 # Document Processing
 cask "mactex"
