@@ -53,6 +53,7 @@ dockutil --add '' --type spacer --section apps --no-restart
 # -----------------------
 # dockutil --add "/System/Applications/Calendar.app" --no-restart
 # dockutil --add "/System/Applications/Reminders.app" --no-restart
+dockutil --add "/Applications/ForkLift.app" --no-restart
 dockutil --add "/System/Applications/Music.app" --no-restart
 dockutil --add "/System/Applications/System Settings.app" --no-restart
 # dockutil --add "/System/Applications/Siri.app" --no-restart

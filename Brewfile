@@ -39,6 +39,7 @@ cask "visual-studio-code"
 # Productivity & Utilities
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
+cask "forklift"            # file manager
 
 # Browsers
 cask "google-chrome"
