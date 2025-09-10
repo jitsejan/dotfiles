@@ -28,6 +28,8 @@ fi
 ./scripts/install_python_tools.sh || true
 ./scripts/install_apps.sh || true
 ./scripts/setup_obsidian.sh || true
+./scripts/setup_codex.sh || true
+./scripts/setup_forklift.sh || true
 ./scripts/setup_dock.sh || true
 
 echo "🔗 Symlinking configs..."
