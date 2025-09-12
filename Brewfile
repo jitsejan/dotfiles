@@ -9,6 +9,7 @@ cask "kitty"
 # Core Development Tools
 brew "awscli"
 brew "databricks"
+cask "docker"
 brew "dockutil"
 brew "eksctl"
 brew "gh"
