@@ -29,6 +29,7 @@ fi
 ./scripts/install_apps.sh || true
 ./scripts/setup_obsidian.sh || true
 ./scripts/setup_codex.sh || true
+./scripts/setup_docker.sh || true
 ./scripts/setup_forklift.sh || true
 ./scripts/setup_dock.sh || true
 
