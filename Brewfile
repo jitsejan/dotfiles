@@ -40,7 +40,7 @@ cask "visual-studio-code"
 # Productivity & Utilities
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
-cask "forklift"            # file manager
+cask "beyond-compare"       # file comparison and management
 
 # Browsers
 cask "google-chrome"
