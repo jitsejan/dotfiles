@@ -15,7 +15,7 @@ dockutil --remove all --no-restart
 # -----------------------
 # 🗂️ File Management (Far Left)
 # -----------------------
-dockutil --add "/Applications/ForkLift.app" --no-restart
+dockutil --add "/Applications/Beyond Compare.app" --no-restart
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
