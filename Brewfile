@@ -17,6 +17,8 @@ brew "git"
 brew "kubectl"
 brew "node"
 brew "pipx"
+brew "terraform"
+brew "terragrunt"
 brew "uv"
 cask "google-cloud-sdk"
 
