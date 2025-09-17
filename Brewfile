@@ -33,6 +33,7 @@ brew "zoxide"       # cd replacement
 # Development Applications
 cask "bruno"
 cask "cursor"
+cask "fork"
 cask "lens"
 cask "pycharm"
 cask "visual-studio-code"

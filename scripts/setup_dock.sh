@@ -30,6 +30,7 @@ dockutil --add '' --type spacer --section apps --no-restart
 # -----------------------
 dockutil --add "/Applications/Bruno.app" --no-restart
 dockutil --add "/Applications/Cursor.app" --no-restart
+dockutil --add "/Applications/Fork.app" --no-restart
 dockutil --add "/Applications/Kitty.app" --no-restart
 dockutil --add "/Applications/PyCharm.app" --no-restart
 dockutil --add "/Applications/Visual Studio Code.app" --no-restart
