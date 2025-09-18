@@ -33,6 +33,7 @@ fi
 ./scripts/setup_beyondcompare.sh || true
 ./scripts/setup_fork.sh || true
 ./scripts/setup_terraform.sh || true
+./scripts/setup_git_filter_repo.sh || true
 ./scripts/setup_dock.sh || true
 
 echo "🔗 Symlinking configs..."
