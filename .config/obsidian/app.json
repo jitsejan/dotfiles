@@ -1,0 +1,31 @@
+{
+  "legacyEditor": false,
+  "livePreview": true,
+  "showLineNumber": true,
+  "showFrontmatter": true,
+  "showIndentGuide": true,
+  "showInlineTitle": true,
+  "promptDelete": true,
+  "autoPairBrackets": true,
+  "autoPairMarkdown": true,
+  "smartIndentList": true,
+  "foldHeading": true,
+  "foldIndent": true,
+  "showLineNumber": true,
+  "readableLineLength": true,
+  "strictLineBreaks": false,
+  "tabSize": 4,
+  "useTab": false,
+  "insertFileAction": "link",
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "attachmentFolderPath": "attachments",
+  "newFileLocation": "folder",
+  "newFileFolderPath": ".",
+  "alwaysUpdateLinks": true,
+  "vimMode": false,
+  "spellcheck": true,
+  "spellcheckLanguages": [
+    "en-US"
+  ]
+}
