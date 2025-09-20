@@ -1,0 +1,16 @@
+{
+  "accentColor": "",
+  "theme": "obsidian",
+  "cssTheme": "Cupertino 2",
+  "baseFontSize": 16,
+  "baseFontSizeAction": true,
+  "interfaceFontFamily": "",
+  "textFontFamily": "",
+  "monospaceFontFamily": "",
+  "showViewHeader": true,
+  "showInlineTitle": true,
+  "showUnsupportedFiles": false,
+  "enabledCssSnippets": [],
+  "translucency": false,
+  "nativeMenus": true
+}
