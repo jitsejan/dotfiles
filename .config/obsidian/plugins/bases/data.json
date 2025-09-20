@@ -1,0 +1,8 @@
+{
+  "enabledBases": true,
+  "showBaseIcons": true,
+  "baseFolder": "Bases",
+  "autoCreateBaseNotes": true,
+  "baseTemplateFolder": "Templates/Bases",
+  "defaultBaseType": "general"
+}
