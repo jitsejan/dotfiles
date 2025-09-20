@@ -2,7 +2,7 @@
 set -euo pipefail
 
 VAULT_NAME="ObsidiJan"
-VAULT_PATH="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Documents/ObsidiJan"
+VAULT_PATH="$HOME/Documents/Obsidian"
 CONFIG_DIR="$HOME/Library/Application Support/obsidian"
 VAULT_REGISTRY="$CONFIG_DIR/obsidian.json"
 VAULT_CONFIG_DIR="$VAULT_PATH/.obsidian"
