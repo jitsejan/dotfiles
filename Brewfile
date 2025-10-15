@@ -29,6 +29,7 @@ brew "eza"          # ls replacement
 brew "fd"           # find replacement
 brew "fzf"          # fuzzy finder
 brew "jq"           # JSON processor
+brew "parquet-tools" # Parquet file manipulation
 brew "ripgrep"      # grep replacement
 brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
