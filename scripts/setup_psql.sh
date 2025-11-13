@@ -14,6 +14,20 @@ PSQL_VERSION=$(psql --version | awk '{print $3}')
 
 echo "✅ PostgreSQL client found: $PSQL_VERSION"
 
+# Check if PostgreSQL service is running
+if brew services list | grep -q "postgresql@14.*started"; then
+  echo "✅ PostgreSQL service is running"
+else
+  echo "⚠️  PostgreSQL service is not running"
+  echo ""
+  echo "To start PostgreSQL as a background service:"
+  echo "  brew services start postgresql@14"
+  echo ""
+  echo "Or run it temporarily in the foreground:"
+  echo "  /opt/homebrew/opt/postgresql@14/bin/postgres -D /opt/homebrew/var/postgresql@14"
+  echo ""
+fi
+
 # Create .psqlrc configuration file for user-friendly settings
 PSQLRC="$HOME/.psqlrc"
 if [[ ! -f "$PSQLRC" ]]; then
@@ -87,6 +101,13 @@ echo "   • Local: psql postgres"
 echo "   • Remote: psql -h db.example.com -U myuser -d mydb"
 echo "   • URI: psql postgresql://user:pass@host:5432/dbname"
 echo "   • Environment vars: PGHOST, PGPORT, PGUSER, PGDATABASE"
+
+echo ""
+echo "🚀 Starting PostgreSQL server:"
+echo "   • As a service: brew services start postgresql@14"
+echo "   • Check status: brew services list | grep postgresql"
+echo "   • Stop service: brew services stop postgresql@14"
+echo "   • One-time run: /opt/homebrew/opt/postgresql@14/bin/postgres -D /opt/homebrew/var/postgresql@14"
 
 echo ""
 echo "✅ PostgreSQL client setup complete!"
