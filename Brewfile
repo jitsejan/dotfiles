@@ -30,6 +30,7 @@ brew "fd"           # find replacement
 brew "fzf"          # fuzzy finder
 brew "jq"           # JSON processor
 brew "parquet-tools" # Parquet file manipulation
+brew "postgresql"    # PostgreSQL client
 brew "ripgrep"      # grep replacement
 brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
