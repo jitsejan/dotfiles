@@ -17,7 +17,6 @@ starship init fish | source
 if type -q zoxide
     zoxide init fish | source
 end
-
 # Added by Antigravity
 fish_add_path /Users/jitsejan/.antigravity/antigravity/bin
 
