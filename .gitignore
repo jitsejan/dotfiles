@@ -2,3 +2,8 @@ __pycache__/
 *.pyc
 .DS_Store
 .venv/
+
+# Ignore sensitive variable stores
+.config/fish/fish_variables
+# Ignore kitty swap files
+.config/kitty/*.swp
