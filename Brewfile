@@ -9,8 +9,7 @@ cask "kitty"
 # Core Development Tools
 brew "act"
 brew "awscli"
-brew "databricks"
-cask "docker"
+cask "docker-desktop"
 brew "dockutil"
 brew "duckdb"
 brew "eksctl"
@@ -24,7 +23,7 @@ brew "postgresql@14"
 brew "terraform"
 brew "terragrunt"
 brew "uv"
-cask "google-cloud-sdk"
+cask "gcloud-cli"
 
 # Command Line Utilities
 brew "bat"          # cat replacement
@@ -39,10 +38,7 @@ brew "zoxide"       # cd replacement
 # Development Applications
 cask "bruno"
 cask "cursor"
-cask "datagrip"
 cask "fork"
-cask "lens"
-cask "pycharm"
 cask "visual-studio-code"
 
 # Productivity & Utilities
@@ -51,16 +47,19 @@ cask "obsidian"            # note taking
 cask "beyond-compare"       # file comparison and management
 cask "zoom"                 # video conferencing
 cask "shadow"               # cloud gaming / remote desktop
+cask "microsoft-teams"      # team communication
+cask "slack"                # team communication
 
 # Browsers
 cask "google-chrome"
 cask "microsoft-edge"
 
 # AI Tools
+cask "antigravity"
 cask "chatgpt"
 cask "chatgpt-atlas"
 cask "claude"
-brew "codex"
+cask "codex-app"
 
 # Document Processing
 brew "pandoc"
