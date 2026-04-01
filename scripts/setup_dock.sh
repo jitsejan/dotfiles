@@ -32,8 +32,8 @@ dockutil --add "/Applications/Bruno.app" --no-restart
 dockutil --add "/Applications/Cursor.app" --no-restart
 dockutil --add "/Applications/Fork.app" --no-restart
 dockutil --add "/Applications/Kitty.app" --no-restart
-dockutil --add "/Applications/PyCharm.app" --no-restart
 dockutil --add "/Applications/Visual Studio Code.app" --no-restart
+dockutil --add "/Applications/Antigravity.app" --no-restart
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
@@ -43,6 +43,7 @@ dockutil --add '' --type spacer --section apps --no-restart
 # dockutil --add "/Applications/Microsoft Teams.app" --no-restart
 dockutil --add "/System/Applications/Messages.app" --no-restart
 dockutil --add "/System/Applications/FaceTime.app" --no-restart
+dockutil --add "/Applications/Slack.app" --no-restart
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------

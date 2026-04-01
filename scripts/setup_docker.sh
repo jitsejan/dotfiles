@@ -5,7 +5,7 @@ echo "🐳 Setting up Docker..."
 
 # Check if Docker Desktop is installed
 if [[ ! -d "/Applications/Docker.app" ]]; then
-  echo "❌ Docker.app not found. Please install it first with 'brew install --cask docker'"
+  echo "❌ Docker.app not found. Please install it first with 'brew install --cask docker-desktop'"
   exit 1
 fi
 
