@@ -9,11 +9,9 @@ cask "kitty"
 # Core Development Tools
 brew "act"
 brew "awscli"
-brew "databricks"
 cask "docker"
 brew "dockutil"
 brew "duckdb"
-brew "eksctl"
 brew "gh"
 brew "git"
 brew "git-filter-repo"
@@ -37,7 +35,6 @@ brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
 
 # Development Applications
-cask "bruno"
 cask "cursor"
 cask "datagrip"
 cask "fork"
@@ -49,8 +46,6 @@ cask "visual-studio-code"
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
 cask "beyond-compare"       # file comparison and management
-cask "zoom"                 # video conferencing
-cask "shadow"               # cloud gaming / remote desktop
 
 # Browsers
 cask "google-chrome"
@@ -58,7 +53,6 @@ cask "microsoft-edge"
 
 # AI Tools
 cask "chatgpt"
-cask "chatgpt-atlas"
 cask "claude"
 brew "codex"
 
