@@ -10,20 +10,20 @@ cask "kitty"
 # Core Development Tools
 brew "act"
 brew "awscli"
-cask "docker"
+cask "docker-desktop"
 brew "dockutil"
 brew "duckdb"
 brew "gh"
 brew "git"
 brew "git-filter-repo"
-brew "kubectl"
+brew "kubernetes-cli"
 brew "node"
 brew "pipx"
 brew "postgresql@14"
 brew "terraform"
 brew "terragrunt"
 brew "uv"
-cask "google-cloud-sdk"
+cask "gcloud-cli"
 
 # Command Line Utilities
 brew "bat"          # cat replacement
