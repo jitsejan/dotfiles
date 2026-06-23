@@ -1,5 +1,4 @@
 # Taps
-tap "databricks/tap"
 tap "microsoft/mssql-release", "https://github.com/Microsoft/homebrew-mssql-release"
 
 # Shell & Terminal
@@ -16,7 +15,6 @@ brew "duckdb"
 brew "gh"
 brew "git"
 brew "git-filter-repo"
-brew "kubectl"
 brew "node"
 brew "pipx"
 brew "postgresql@14"
@@ -41,9 +39,7 @@ brew "zoxide"       # cd replacement
 
 # Development Applications
 cask "cursor"
-cask "datagrip"
 cask "fork"
-cask "lens"
 cask "pycharm"
 cask "visual-studio-code"
 
