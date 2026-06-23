@@ -90,3 +90,7 @@ vscode "ms-vscode.makefile-tools"
 vscode "openai.chatgpt"
 vscode "redhat.vscode-yaml"
 vscode "vstirbu.vscode-mermaid-preview"
+
+# npm Global Packages
+npm "@anthropic-ai/claude-code"
+npm "@mermaid-js/mermaid-cli"
