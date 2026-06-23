@@ -68,3 +68,22 @@ cask "mactex"
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
+
+# VS Code Extensions
+vscode "atlassian.atlascode"
+vscode "hashicorp.terraform"
+vscode "jebbs.plantuml"
+vscode "monokai.theme-monokai-pro-vscode"
+vscode "ms-python.debugpy"
+vscode "ms-python.python"
+vscode "ms-python.vscode-pylance"
+vscode "ms-python.vscode-python-envs"
+vscode "ms-toolsai.jupyter"
+vscode "ms-toolsai.jupyter-keymap"
+vscode "ms-toolsai.jupyter-renderers"
+vscode "ms-toolsai.vscode-jupyter-cell-tags"
+vscode "ms-toolsai.vscode-jupyter-slideshow"
+vscode "ms-vscode.makefile-tools"
+vscode "openai.chatgpt"
+vscode "redhat.vscode-yaml"
+vscode "vstirbu.vscode-mermaid-preview"
