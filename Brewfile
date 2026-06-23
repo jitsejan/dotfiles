@@ -9,7 +9,7 @@ cask "kitty"
 # Core Development Tools
 brew "act"
 brew "awscli"
-cask "docker"
+cask "docker-desktop"
 brew "dockutil"
 brew "duckdb"
 brew "gh"
@@ -22,7 +22,7 @@ brew "postgresql@14"
 brew "terraform"
 brew "terragrunt"
 brew "uv"
-cask "google-cloud-sdk"
+cask "gcloud-cli"
 
 # Command Line Utilities
 brew "bat"          # cat replacement
