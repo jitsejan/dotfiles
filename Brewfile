@@ -1,5 +1,6 @@
 # Taps
 tap "databricks/tap"
+tap "microsoft/mssql-release", "https://github.com/Microsoft/homebrew-mssql-release"
 
 # Shell & Terminal
 brew "fish"
@@ -60,6 +61,10 @@ cask "microsoft-edge"
 cask "chatgpt"
 cask "claude"
 brew "codex"
+
+# Database Drivers
+brew "unixodbc"                                              # ODBC 3 connectivity for UNIX
+brew "microsoft/mssql-release/msodbcsql18", trusted: true   # MS SQL Server ODBC driver
 
 # Document Processing
 brew "pandoc"
