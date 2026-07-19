@@ -28,7 +28,6 @@ dockutil --add '' --type spacer --section apps --no-restart
 # -----------------------
 # 👨‍💻 Dev & Ops
 # -----------------------
-dockutil --add "/Applications/Bruno.app" --no-restart
 dockutil --add "/Applications/Cursor.app" --no-restart
 dockutil --add "/Applications/Fork.app" --no-restart
 dockutil --add "/Applications/Kitty.app" --no-restart
