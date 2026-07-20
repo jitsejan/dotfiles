@@ -47,7 +47,6 @@ cask "visual-studio-code"
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
 cask "beyond-compare"       # file comparison and management
-cask "shadow"               # cloud gaming / remote desktop
 
 # Browsers
 cask "google-chrome"
