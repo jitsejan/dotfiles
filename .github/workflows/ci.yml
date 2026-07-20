@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  shellcheck:
+    name: ShellCheck scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run shellcheck
+        run: shellcheck --severity=error scripts/*.sh
+
+  brewfile:
+    name: Validate Brewfile
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse Brewfile
+        run: brew bundle list --file=Brewfile >/dev/null
