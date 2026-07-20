@@ -4,7 +4,7 @@ tap "microsoft/mssql-release", "https://github.com/Microsoft/homebrew-mssql-rele
 # Shell & Terminal
 brew "fish"
 brew "starship"
-cask "kitty"
+cask "ghostty"
 
 # Core Development Tools
 brew "act"

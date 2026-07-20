@@ -38,7 +38,7 @@ fi
 
 echo "🔗 Symlinking configs..."
 mkdir -p ~/.config
-ln -sf "$PWD/.config/kitty" ~/.config/kitty
+ln -sf "$PWD/.config/ghostty" ~/.config/ghostty
 ln -sf "$PWD/.config/starship.toml" ~/.config/starship.toml
 ln -sf "$PWD/.config/fish" ~/.config/fish
 

@@ -5,5 +5,3 @@ __pycache__/
 
 # Ignore sensitive variable stores
 .config/fish/fish_variables
-# Ignore kitty swap files
-.config/kitty/*.swp
