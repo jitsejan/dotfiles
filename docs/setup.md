@@ -130,11 +130,12 @@ Then add what's installed-but-untracked and remove what's tracked-but-gone.
 
 `install_python_tools.sh` installs:
 
-- **uv** (Astral) — fast package installer/resolver.
-- **Rye** — project & Python version management.
-- Via **pipx** (isolated): `black`, `ruff`, `isort`, `pyright`.
+- **uv** (Astral) — fast package installer/resolver + project/Python-version
+  manager (also replaces Rye, now maintenance-only).
+- Via **pipx** (isolated): `ruff` (lint + format + import sorting, replacing
+  black & isort) and `pyright`.
 
-Workflow leans on **Rye + uv**, with Starship surfacing which one a project uses.
+Workflow leans on **uv**, with Starship surfacing project details.
 
 ## AI & coding tools
 
