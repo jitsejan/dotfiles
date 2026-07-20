@@ -32,7 +32,7 @@ dotfiles/
 ├── .gitignore               # ignores secrets, .DS_Store, .venv, swap files
 ├── .config/
 │   ├── fish/                # shell config + functions
-│   ├── kitty/               # terminal config, theme, custom tab bar
+│   ├── ghostty/             # terminal config (font, colors)
 │   ├── starship.toml        # prompt
 │   └── obsidian/            # tracked Obsidian config (app, theme, plugins)
 └── scripts/
@@ -55,7 +55,7 @@ dotfiles/
 5. **Per-tool setup** — Obsidian, Codex, Docker, Beyond Compare, Fork, Terraform,
    git-filter-repo, Dock.
 6. **Symlink configs** into `~/.config`:
-   - `~/.config/kitty` → repo `.config/kitty`
+   - `~/.config/ghostty` → repo `.config/ghostty`
    - `~/.config/starship.toml` → repo `.config/starship.toml`
    - `~/.config/fish` → repo `.config/fish`
 
@@ -66,7 +66,7 @@ The Brewfile is the heart of the setup — `brew bundle` installs everything in 
 | Group | Packages |
 |-------|----------|
 | **Taps** | `microsoft/mssql-release` |
-| **Shell & Terminal** | fish, starship, kitty |
+| **Shell & Terminal** | fish, starship, ghostty |
 | **Core Dev** | act, awscli, docker-desktop, dockutil, duckdb, gh, git, git-filter-repo, node, pipx, postgresql@14, terraform, terragrunt, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, tree, zoxide |
 | **Dev Apps** | cursor, fork, pycharm, visual-studio-code |
@@ -79,9 +79,8 @@ The Brewfile is the heart of the setup — `brew bundle` installs everything in 
 | **VS Code** | 17 extensions (Python, Jupyter, Terraform, YAML, PlantUML, Mermaid, Atlassian, Monokai Pro, Makefile…) |
 | **npm globals** | @anthropic-ai/claude-code, @mermaid-js/mermaid-cli |
 
-> **Tracked but installed outside brew:** `kitty` and `shadow` are kept in the Brewfile
-> even though they don't appear in `brew bundle dump` — they're managed another way but
-> I want them tracked.
+> **Tracked but installed outside brew:** `shadow` is kept in the Brewfile even though it
+> doesn't appear in `brew bundle dump` — it's managed another way but I want it tracked.
 
 **Keeping the Brewfile in sync with the Mac:**
 
@@ -118,13 +117,14 @@ Then add what's installed-but-untracked and remove what's tracked-but-gone.
   (`rye.lock`) and **uv** (`uv.lock`) projects with custom segments.
 - Right-side: Python info, command duration, clock (`HH:MM:SS`).
 
-## Terminal — Kitty
+## Terminal — Ghostty
 
-`kitty.conf` configures:
+`.config/ghostty/config` configures:
 
-- **Font**: RobotoMono Nerd Font.
-- **Custom bottom tab bar** (`tab_bar.py`) — left-aligned, no separators, bold active tab.
-- Theme split into `theme.conf`.
+- **Font**: JetBrainsMono Nerd Font.
+- **Colors**: custom Monokai-ish palette (dark `#191919` background) ported from the
+  previous Kitty theme.
+- Native macOS tabs/splits, `copy-on-select`, option-as-alt, saved window state.
 
 ## Python tooling
 
