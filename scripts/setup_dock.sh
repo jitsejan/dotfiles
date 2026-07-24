@@ -13,12 +13,6 @@ fi
 dockutil --remove all --no-restart
 
 # -----------------------
-# 🗂️ File Management (Far Left)
-# -----------------------
-dockutil --add "/Applications/Beyond Compare.app" --no-restart
-dockutil --add '' --type spacer --section apps --no-restart
-
-# -----------------------
 # 🧠 Notes & Knowledge
 # -----------------------
 dockutil --add "/Applications/Obsidian.app" --no-restart
