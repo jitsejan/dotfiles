@@ -53,7 +53,7 @@ cask "microsoft-edge"
 # AI Tools
 cask "chatgpt"
 cask "claude"
-brew "codex"
+cask "codex"
 
 # Database Drivers
 brew "unixodbc"                                              # ODBC 3 connectivity for UNIX
