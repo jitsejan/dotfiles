@@ -28,20 +28,9 @@ dockutil --add '' --type spacer --section apps --no-restart
 # -----------------------
 # 👨‍💻 Dev & Ops
 # -----------------------
-dockutil --add "/Applications/Cursor.app" --no-restart
 dockutil --add "/Applications/Fork.app" --no-restart
 dockutil --add "/Applications/Ghostty.app" --no-restart
-dockutil --add "/Applications/PyCharm.app" --no-restart
 dockutil --add "/Applications/Visual Studio Code.app" --no-restart
-dockutil --add '' --type spacer --section apps --no-restart
-
-# -----------------------
-# 🤝 Communication
-# -----------------------
-# dockutil --add "/Applications/Microsoft Outlook.app" --no-restart
-# dockutil --add "/Applications/Microsoft Teams.app" --no-restart
-dockutil --add "/System/Applications/Messages.app" --no-restart
-dockutil --add "/System/Applications/FaceTime.app" --no-restart
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
@@ -60,6 +49,7 @@ dockutil --add '' --type spacer --section apps --no-restart
 # dockutil --add "/System/Applications/Calendar.app" --no-restart
 # dockutil --add "/System/Applications/Reminders.app" --no-restart
 dockutil --add "/System/Applications/Music.app" --no-restart
+dockutil --add "/System/Applications/Messages.app" --no-restart
 dockutil --add "/System/Applications/System Settings.app" --no-restart
 # dockutil --add "/System/Applications/Siri.app" --no-restart
 # dockutil --add "/System/Applications/Home.app" --no-restart

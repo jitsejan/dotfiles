@@ -38,9 +38,7 @@ brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
 
 # Development Applications
-cask "cursor"
 cask "fork"
-cask "pycharm"
 cask "visual-studio-code"
 
 # Productivity & Utilities
