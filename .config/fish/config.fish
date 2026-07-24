@@ -25,3 +25,4 @@ function __auto_dotenv --on-variable PWD
         dotenv .env
     end
 end
+fish_add_path $HOME/.local/bin
