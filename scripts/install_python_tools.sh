@@ -3,11 +3,7 @@ set -e
 
 echo "🐍 Installing Python tools..."
 
-# Install uv (package installer, resolver, and project/Python-version manager;
-# also replaces Rye, which is now maintenance-only).
-if ! command -v uv &>/dev/null; then
-  curl -sSf https://astral.sh/uv/install.sh | sh
-fi
+# uv is installed via Brewfile — nothing to do here.
 
 # Python dev tools via pipx.
 # ruff covers linting + formatting + import sorting (replaces black & isort).
