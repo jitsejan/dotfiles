@@ -26,7 +26,6 @@ cask "gcloud-cli"
 # Command Line Utilities
 brew "bat"          # cat replacement
 brew "btop"         # resource monitor
-brew "cmatrix"      # terminal matrix animation
 brew "eza"          # ls replacement
 brew "fd"           # find replacement
 brew "fzf"          # fuzzy finder
@@ -34,7 +33,6 @@ brew "glow"         # markdown renderer
 brew "jq"           # JSON processor
 brew "qpdf"         # PDF transform & inspect
 brew "ripgrep"      # grep replacement
-brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
 
 # Development Applications
@@ -44,7 +42,6 @@ cask "visual-studio-code"
 # Productivity & Utilities
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
-cask "beyond-compare"       # file comparison and management
 
 # Browsers
 cask "google-chrome"
