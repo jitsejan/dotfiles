@@ -11,14 +11,8 @@ fi
 
 echo "✅ Codex CLI found: $(codex --version)"
 
-# Check if already authenticated
-if codex login --check &>/dev/null; then
-  echo "✅ Codex is already authenticated"
-else
-  echo "🔐 Setting up Codex authentication..."
-  echo "Please follow the authentication process:"
-  codex login || true
-fi
+# Skip auth — requires an interactive browser session; run 'codex login' manually after setup.
+echo "ℹ️  Skipping Codex auth — run 'codex login' manually to authenticate"
 
 # Create basic config directory if it doesn't exist
 mkdir -p ~/.codex
