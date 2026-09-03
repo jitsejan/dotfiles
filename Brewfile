@@ -40,6 +40,7 @@ brew "glow"         # markdown renderer
 brew "jq"           # JSON processor
 brew "qpdf"         # PDF transform & inspect
 brew "ripgrep"      # grep replacement
+brew "shellcheck"   # lint scripts/*.sh (matches CI)
 brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
 
@@ -63,7 +64,6 @@ cask "microsoft-edge"
 # AI Tools
 cask "chatgpt"
 cask "claude"
-cask "codex"
 
 # Database Drivers
 brew "unixodbc"                                              # ODBC 3 connectivity for UNIX

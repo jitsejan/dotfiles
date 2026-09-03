@@ -9,50 +9,57 @@ if ! command -v dockutil &> /dev/null; then
   exit 1
 fi
 
+# Add an app to the Dock only if it's actually installed, so a cask removed
+# from the Brewfile doesn't break this script.
+add_app() {
+  local app="$1"
+  if [[ -d "$app" ]]; then
+    dockutil --add "$app" --no-restart
+  else
+    echo "  ↷ skipping $app (not installed)"
+  fi
+}
+
 # Clear current Dock items
 dockutil --remove all --no-restart
 
 # -----------------------
 # 🗂️ File Management (Far Left)
 # -----------------------
-dockutil --add "/Applications/Beyond Compare.app" --no-restart
+add_app "/Applications/Beyond Compare.app"
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
 # 🧠 Notes & Knowledge
 # -----------------------
-dockutil --add "/Applications/Obsidian.app" --no-restart
-dockutil --add "/System/Applications/Notes.app" --no-restart
+add_app "/Applications/Obsidian.app"
+add_app "/System/Applications/Notes.app"
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
 # 👨‍💻 Dev & Ops
 # -----------------------
-dockutil --add "/Applications/Fork.app" --no-restart
-dockutil --add "/Applications/Ghostty.app" --no-restart
-dockutil --add "/Applications/Visual Studio Code.app" --no-restart
+add_app "/Applications/Fork.app"
+add_app "/Applications/Ghostty.app"
+add_app "/Applications/Visual Studio Code.app"
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
 # 🌐 Web & AI
 # -----------------------
-dockutil --add "/Applications/Google Chrome.app" --no-restart
-dockutil --add "/Applications/Microsoft Edge.app" --no-restart
-dockutil --add "/Applications/ChatGPT.app" --no-restart
-dockutil --add "/Applications/Claude.app" --no-restart
-dockutil --add "/Applications/Safari.app" --no-restart
+add_app "/Applications/Google Chrome.app"
+add_app "/Applications/Microsoft Edge.app"
+add_app "/Applications/ChatGPT.app"
+add_app "/Applications/Claude.app"
+add_app "/Applications/Safari.app"
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
 # 🧘 Lifestyle & System
 # -----------------------
-# dockutil --add "/System/Applications/Calendar.app" --no-restart
-# dockutil --add "/System/Applications/Reminders.app" --no-restart
-dockutil --add "/System/Applications/Music.app" --no-restart
-dockutil --add "/System/Applications/Messages.app" --no-restart
-dockutil --add "/System/Applications/System Settings.app" --no-restart
-# dockutil --add "/System/Applications/Siri.app" --no-restart
-# dockutil --add "/System/Applications/Home.app" --no-restart
+add_app "/System/Applications/Music.app"
+add_app "/System/Applications/Messages.app"
+add_app "/System/Applications/System Settings.app"
 
 # -----------------------
 # 📂 Folders
