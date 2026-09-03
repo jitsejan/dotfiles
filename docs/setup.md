@@ -34,7 +34,8 @@ dotfiles/
 │   ├── fish/                # shell config + functions
 │   ├── ghostty/             # terminal config (font, colors)
 │   ├── starship.toml        # prompt
-│   └── obsidian/            # tracked Obsidian config (app, theme, plugins)
+│   ├── obsidian/            # tracked Obsidian config (app, theme, plugins)
+│   └── vscode/              # settings.json + keybindings.json
 └── scripts/
     ├── bootstrap.sh         # orchestrator
     ├── install_brew.sh      # Homebrew + brew bundle
@@ -54,10 +55,16 @@ dotfiles/
 4. **npm globals** — `install_apps.sh`.
 5. **Per-tool setup** — Obsidian, Docker, Beyond Compare, Fork, Terraform,
    git-filter-repo, Dock.
-6. **Symlink configs** into `~/.config`:
+6. **Symlink configs**:
    - `~/.config/ghostty` → repo `.config/ghostty`
    - `~/.config/starship.toml` → repo `.config/starship.toml`
    - `~/.config/fish` → repo `.config/fish`
+   - `~/Library/Application Support/Code/User/settings.json` → repo
+     `.config/vscode/settings.json`
+   - `~/Library/Application Support/Code/User/keybindings.json` → repo
+     `.config/vscode/keybindings.json`
+   - (skipped if VS Code hasn't been launched once yet — its `User/` directory
+     won't exist; re-run `bootstrap.sh` after first launch)
 
 ## Brewfile
 
@@ -123,6 +130,23 @@ Then add what's installed-but-untracked and remove what's tracked-but-gone.
 - **Colors**: custom Monokai-ish palette (dark `#191919` background) ported from the
   previous Kitty theme.
 - Native macOS tabs/splits, `copy-on-select`, option-as-alt, saved window state.
+
+## Editor — VS Code
+
+`.config/vscode/settings.json` + `keybindings.json` are symlinked into VS Code's
+`User/` config directory (see Bootstrap flow, step 6):
+
+- **Theme**: Monokai Pro (`monokai-pro-vscode` + icons).
+- **PlantUML**: points at the public plantuml.com render server.
+- **Atlascode**: Bitbucket integration enabled.
+- **Chat tool auto-approve**: `uv` commands auto-approved in the integrated
+  terminal's chat tools. Kept intentionally generic — project-specific
+  auto-approve rules belong in that project's own `.vscode/settings.json`,
+  not here.
+- `keybindings.json` is currently empty (no custom overrides tracked).
+
+`Brewfile`'s `vscode "..."` lines install the extensions themselves; these two
+files carry the actual editor configuration.
 
 ## Python tooling
 
