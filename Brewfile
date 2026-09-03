@@ -21,6 +21,12 @@ brew "postgresql@14"
 brew "terraform"
 brew "terragrunt"
 brew "uv"
+brew "azure-cli"
+brew "kubernetes-cli"
+brew "opencode"
+brew "snowflake-cli"
+brew "sqlcmd"
+brew "tmux"
 cask "gcloud-cli"
 
 # Command Line Utilities
@@ -38,6 +44,7 @@ brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
 
 # Development Applications
+cask "datagrip"
 cask "fork"
 cask "visual-studio-code"
 
@@ -45,6 +52,9 @@ cask "visual-studio-code"
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
 cask "beyond-compare"       # file comparison and management
+cask "shadow"               # cloud gaming / remote desktop
+cask "lens"                 # Kubernetes IDE
+cask "libreoffice"          # office suite
 
 # Browsers
 cask "google-chrome"
@@ -80,6 +90,7 @@ vscode "ms-toolsai.jupyter-keymap"
 vscode "ms-toolsai.jupyter-renderers"
 vscode "ms-toolsai.vscode-jupyter-cell-tags"
 vscode "ms-toolsai.vscode-jupyter-slideshow"
+vscode "mechatroner.rainbow-csv"
 vscode "ms-vscode.makefile-tools"
 vscode "openai.chatgpt"
 vscode "redhat.vscode-yaml"
@@ -88,3 +99,4 @@ vscode "vstirbu.vscode-mermaid-preview"
 # npm Global Packages
 npm "@anthropic-ai/claude-code"
 npm "@mermaid-js/mermaid-cli"
+npm "pptxgenjs"
