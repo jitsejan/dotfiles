@@ -149,7 +149,7 @@ Each is idempotent — verifies the app/binary exists, then configures it:
 | Script | What it does |
 |--------|--------------|
 | `setup_docker.sh` | Verifies Docker Desktop, launches it, waits for the daemon, checks compose. |
-| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → comms) with spacers; skips any app that isn't installed. |
+| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → client/VDI → comms) with spacers; skips any app that isn't installed; disables `show-recents` so macOS doesn't append unmanaged icons. |
 | `setup_terraform.sh` | Verifies Terraform + Terragrunt, ensures `~/.terraform.d`. |
 | `setup_beyondcompare.sh` | Symlinks `bcomp` CLI into `/usr/local/bin`. |
 | `setup_fork.sh` | Verifies Fork + checks global git user config. |
