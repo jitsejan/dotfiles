@@ -69,7 +69,7 @@ The Brewfile is the heart of the setup — `brew bundle` installs everything in 
 | **Shell & Terminal** | fish, starship, ghostty |
 | **Core Dev** | act, awscli, docker-desktop, dockutil, duckdb, gh, git, git-filter-repo, node, pipx, postgresql@14, terraform, terragrunt, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, tree, zoxide |
-| **Dev Apps** | datagrip, fork, visual-studio-code |
+| **Dev Apps** | fork, visual-studio-code |
 | **Productivity** | rectangle, obsidian, beyond-compare, shadow, lens, libreoffice |
 | **Browsers** | google-chrome, microsoft-edge |
 | **AI Tools** | chatgpt, claude |

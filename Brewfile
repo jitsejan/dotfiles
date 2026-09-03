@@ -45,7 +45,6 @@ brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
 
 # Development Applications
-cask "datagrip"
 cask "fork"
 cask "visual-studio-code"
 
