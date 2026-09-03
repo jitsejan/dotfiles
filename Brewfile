@@ -21,11 +21,7 @@ brew "postgresql@14"
 brew "terraform"
 brew "terragrunt"
 brew "uv"
-brew "azure-cli"
-brew "kubernetes-cli"
 brew "opencode"
-brew "snowflake-cli"
-brew "sqlcmd"
 brew "tmux"
 cask "gcloud-cli"
 
@@ -53,7 +49,6 @@ cask "rectangle"            # window management
 cask "obsidian"            # note taking
 cask "beyond-compare"       # file comparison and management
 cask "shadow"               # cloud gaming / remote desktop
-cask "lens"                 # Kubernetes IDE
 cask "libreoffice"          # office suite
 
 # Browsers

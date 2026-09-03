@@ -67,17 +67,17 @@ The Brewfile is the heart of the setup — `brew bundle` installs everything in 
 |-------|----------|
 | **Taps** | `microsoft/mssql-release` |
 | **Shell & Terminal** | fish, starship, ghostty |
-| **Core Dev** | act, awscli, docker-desktop, dockutil, duckdb, gh, git, git-filter-repo, node, pipx, postgresql@14, terraform, terragrunt, uv, gcloud-cli |
-| **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, tree, zoxide |
+| **Core Dev** | act, awscli, docker-desktop, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, postgresql@14, terraform, terragrunt, tmux, uv, gcloud-cli |
+| **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, shellcheck, tree, zoxide |
 | **Dev Apps** | fork, visual-studio-code |
-| **Productivity** | rectangle, obsidian, beyond-compare, shadow, lens, libreoffice |
+| **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice |
 | **Browsers** | google-chrome, microsoft-edge |
 | **AI Tools** | chatgpt, claude |
 | **DB Drivers** | unixodbc, msodbcsql18 (MS SQL ODBC) |
 | **Docs** | pandoc, mactex |
 | **Fonts** | font-jetbrains-mono-nerd-font |
-| **VS Code** | 17 extensions (Python, Jupyter, Terraform, YAML, PlantUML, Mermaid, Atlassian, Monokai Pro, Makefile…) |
-| **npm globals** | @anthropic-ai/claude-code, @mermaid-js/mermaid-cli |
+| **VS Code** | 18 extensions (Python, Jupyter, Terraform, YAML, PlantUML, Mermaid, Atlassian, Monokai Pro, Makefile, rainbow-csv…) |
+| **npm globals** | @anthropic-ai/claude-code, @mermaid-js/mermaid-cli, pptxgenjs |
 
 **Keeping the Brewfile in sync with the Mac:**
 
