@@ -5,3 +5,7 @@ __pycache__/
 
 # Ignore sensitive variable stores
 .config/fish/fish_variables
+
+# Fish auto-generated migration artifacts (fish recommends deleting these)
+.config/fish/conf.d/fish_frozen_key_bindings.fish
+.config/fish/conf.d/fish_frozen_theme.fish
