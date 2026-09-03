@@ -67,4 +67,12 @@ link_config "$PWD/.config/ghostty" ~/.config/ghostty
 link_config "$PWD/.config/starship.toml" ~/.config/starship.toml
 link_config "$PWD/.config/fish" ~/.config/fish
 
+VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
+if [[ -d "$VSCODE_USER_DIR" ]]; then
+  link_config "$PWD/.config/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
+  link_config "$PWD/.config/vscode/keybindings.json" "$VSCODE_USER_DIR/keybindings.json"
+else
+  echo "  ↷ skipping VS Code config (VS Code not installed yet — run bootstrap again after)"
+fi
+
 echo "✅ Dotfiles setup complete!"
