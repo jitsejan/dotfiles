@@ -48,8 +48,16 @@ cask "visual-studio-code"
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
 cask "beyond-compare"       # file comparison and management
-cask "shadow"               # cloud gaming / remote desktop
+cask "shadow"               # AI notetaker (taperlabs) — not in Homebrew's cask repo,
+                             # tracked here as a marker; install manually from shadow.app
 cask "libreoffice"          # office suite
+cask "zoom"                 # video calls
+
+# Client / VDI Tools — installed via Microsoft's own installer, not brew;
+# tracked here as a marker so `brew bundle check` flags them as expected
+# rather than silently missing.
+cask "windows-app"            # Microsoft VDI client for current client engagement
+cask "intune-company-portal"  # client device management (Intune enrollment)
 
 # Browsers
 cask "google-chrome"
