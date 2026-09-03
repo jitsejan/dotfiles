@@ -21,11 +21,7 @@ brew "postgresql@14"
 brew "terraform"
 brew "terragrunt"
 brew "uv"
-brew "azure-cli"
-brew "kubernetes-cli"
 brew "opencode"
-brew "snowflake-cli"
-brew "sqlcmd"
 brew "tmux"
 cask "gcloud-cli"
 
@@ -40,11 +36,11 @@ brew "glow"         # markdown renderer
 brew "jq"           # JSON processor
 brew "qpdf"         # PDF transform & inspect
 brew "ripgrep"      # grep replacement
+brew "shellcheck"   # lint scripts/*.sh (matches CI)
 brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
 
 # Development Applications
-cask "datagrip"
 cask "fork"
 cask "visual-studio-code"
 
@@ -52,9 +48,16 @@ cask "visual-studio-code"
 cask "rectangle"            # window management
 cask "obsidian"            # note taking
 cask "beyond-compare"       # file comparison and management
-cask "shadow"               # cloud gaming / remote desktop
-cask "lens"                 # Kubernetes IDE
+cask "shadow"               # AI notetaker (taperlabs) — not in Homebrew's cask repo,
+                             # tracked here as a marker; install manually from shadow.app
 cask "libreoffice"          # office suite
+cask "zoom"                 # video calls
+
+# Client / VDI Tools — installed via Microsoft's own installer, not brew;
+# tracked here as a marker so `brew bundle check` flags them as expected
+# rather than silently missing.
+cask "windows-app"            # Microsoft VDI client for current client engagement
+cask "intune-company-portal"  # client device management (Intune enrollment)
 
 # Browsers
 cask "google-chrome"
@@ -63,7 +66,6 @@ cask "microsoft-edge"
 # AI Tools
 cask "chatgpt"
 cask "claude"
-cask "codex"
 
 # Database Drivers
 brew "unixodbc"                                              # ODBC 3 connectivity for UNIX

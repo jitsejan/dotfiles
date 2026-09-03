@@ -54,7 +54,6 @@ fi
 ./scripts/install_python_tools.sh || true
 ./scripts/install_apps.sh || true
 ./scripts/setup_obsidian.sh || true
-./scripts/setup_codex.sh || true
 ./scripts/setup_docker.sh || true
 ./scripts/setup_beyondcompare.sh || true
 ./scripts/setup_fork.sh || true

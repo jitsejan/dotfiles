@@ -17,8 +17,11 @@ starship init fish | source
 if type -q zoxide
     zoxide init fish | source
 end
-# Added by Antigravity
-fish_add_path /Users/jitsejan/.antigravity/antigravity/bin
+
+# fzf init — Ctrl-R (history), Ctrl-T (file finder), Alt-C (cd)
+if type -q fzf
+    fzf --fish | source
+end
 
 function __auto_dotenv --on-variable PWD
     if test -f .env
