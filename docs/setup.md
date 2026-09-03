@@ -40,7 +40,7 @@ dotfiles/
     ├── install_brew.sh      # Homebrew + brew bundle
     ├── install_python_tools.sh
     ├── install_apps.sh      # npm globals
-    └── setup_*.sh           # per-tool setup (docker, dock, codex, …)
+    └── setup_*.sh           # per-tool setup (docker, dock, obsidian, …)
 ```
 
 ## Bootstrap flow
@@ -52,7 +52,7 @@ dotfiles/
 2. **Make Fish the login shell** — adds Fish to `/etc/shells` and runs `chsh`.
 3. **Python tooling** — `install_python_tools.sh`.
 4. **npm globals** — `install_apps.sh`.
-5. **Per-tool setup** — Obsidian, Codex, Docker, Beyond Compare, Fork, Terraform,
+5. **Per-tool setup** — Obsidian, Docker, Beyond Compare, Fork, Terraform,
    git-filter-repo, Dock.
 6. **Symlink configs** into `~/.config`:
    - `~/.config/ghostty` → repo `.config/ghostty`
@@ -67,17 +67,18 @@ The Brewfile is the heart of the setup — `brew bundle` installs everything in 
 |-------|----------|
 | **Taps** | `microsoft/mssql-release` |
 | **Shell & Terminal** | fish, starship, ghostty |
-| **Core Dev** | act, awscli, docker-desktop, dockutil, duckdb, gh, git, git-filter-repo, node, pipx, postgresql@14, terraform, terragrunt, uv, gcloud-cli |
-| **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, tree, zoxide |
-| **Dev Apps** | cursor, fork, pycharm, visual-studio-code |
-| **Productivity** | rectangle, obsidian, beyond-compare |
+| **Core Dev** | act, awscli, docker-desktop, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, postgresql@14, terraform, terragrunt, tmux, uv, gcloud-cli |
+| **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, shellcheck, tree, zoxide |
+| **Dev Apps** | fork, visual-studio-code |
+| **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice, zoom |
+| **Client / VDI** | windows-app (Microsoft VDI client), intune-company-portal (device management) |
 | **Browsers** | google-chrome, microsoft-edge |
-| **AI Tools** | chatgpt, claude, codex |
+| **AI Tools** | chatgpt, claude |
 | **DB Drivers** | unixodbc, msodbcsql18 (MS SQL ODBC) |
 | **Docs** | pandoc, mactex |
 | **Fonts** | font-jetbrains-mono-nerd-font |
-| **VS Code** | 17 extensions (Python, Jupyter, Terraform, YAML, PlantUML, Mermaid, Atlassian, Monokai Pro, Makefile…) |
-| **npm globals** | @anthropic-ai/claude-code, @mermaid-js/mermaid-cli |
+| **VS Code** | 18 extensions (Python, Jupyter, Terraform, YAML, PlantUML, Mermaid, Atlassian, Monokai Pro, Makefile, rainbow-csv…) |
+| **npm globals** | @anthropic-ai/claude-code, @mermaid-js/mermaid-cli, pptxgenjs |
 
 **Keeping the Brewfile in sync with the Mac:**
 
@@ -136,10 +137,10 @@ Workflow leans on **uv**, with Starship surfacing project details.
 
 ## AI & coding tools
 
-- **Claude** desktop app + **Claude Code** CLI (`@anthropic-ai/claude-code`, npm global).
-- **ChatGPT** desktop app + **Codex CLI** (`setup_codex.sh` handles login and writes
-  `~/.codex/config.toml`).
-- **Cursor** editor.
+- **Claude** desktop app + **Claude Code** CLI (`@anthropic-ai/claude-code`, npm global) —
+  primary daily driver. See [`CLAUDE.md`](../CLAUDE.md) for how Claude Code should operate
+  in this repo, plus the `machine-setup` and `drift-check` skills under `.claude/skills/`.
+- **ChatGPT** desktop app — used occasionally, no CLI tooling tracked here.
 
 ## Per-tool setup scripts
 
@@ -148,8 +149,7 @@ Each is idempotent — verifies the app/binary exists, then configures it:
 | Script | What it does |
 |--------|--------------|
 | `setup_docker.sh` | Verifies Docker Desktop, launches it, waits for the daemon, checks compose. |
-| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → comms) with spacers. |
-| `setup_codex.sh` | Checks/does Codex login, writes a default `config.toml`. |
+| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → client/VDI → comms) with spacers; skips any app that isn't installed; disables `show-recents` so macOS doesn't append unmanaged icons. |
 | `setup_terraform.sh` | Verifies Terraform + Terragrunt, ensures `~/.terraform.d`. |
 | `setup_beyondcompare.sh` | Symlinks `bcomp` CLI into `/usr/local/bin`. |
 | `setup_fork.sh` | Verifies Fork + checks global git user config. |
