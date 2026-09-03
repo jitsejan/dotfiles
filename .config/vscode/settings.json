@@ -1,0 +1,9 @@
+{
+    "workbench.colorTheme": "Monokai Pro",
+    "workbench.iconTheme": "Monokai Pro Icons",
+    "plantuml.server": "https://www.plantuml.com/plantuml",
+    "chat.tools.terminal.autoApprove": {
+        "uv": true
+    },
+    "atlascode.bitbucket.enabled": true
+}
