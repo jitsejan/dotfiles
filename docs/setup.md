@@ -76,10 +76,10 @@ The Brewfile is the heart of the setup — `brew bundle` installs everything in 
 | **Shell & Terminal** | fish, starship, ghostty |
 | **Core Dev** | act, awscli, docker-desktop, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, postgresql@14, terraform, terragrunt, tmux, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, shellcheck, tree, zoxide |
-| **Dev Apps** | fork, visual-studio-code |
-| **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice, zoom |
-| **Client / VDI** | windows-app (Microsoft VDI client), intune-company-portal (device management) |
-| **Browsers** | google-chrome, microsoft-edge |
+| **Dev Apps** | bruno, fork, visual-studio-code |
+| **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice |
+| **Client / VDI** | intune-company-portal (device management) |
+| **Browsers** | google-chrome |
 | **AI Tools** | chatgpt, claude |
 | **DB Drivers** | unixodbc, msodbcsql18 (MS SQL ODBC) |
 | **Docs** | pandoc, mactex |
@@ -173,7 +173,7 @@ Each is idempotent — verifies the app/binary exists, then configures it:
 | Script | What it does |
 |--------|--------------|
 | `setup_docker.sh` | Verifies Docker Desktop, launches it, waits for the daemon, checks compose. |
-| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → client/VDI → comms) with spacers; skips any app that isn't installed; disables `show-recents` so macOS doesn't append unmanaged icons. |
+| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → lifestyle/system) with spacers; skips any app that isn't installed; disables `show-recents` so macOS doesn't append unmanaged icons. |
 | `setup_terraform.sh` | Verifies Terraform + Terragrunt, ensures `~/.terraform.d`. |
 | `setup_beyondcompare.sh` | Symlinks `bcomp` CLI into `/usr/local/bin`. |
 | `setup_fork.sh` | Verifies Fork + checks global git user config. |
