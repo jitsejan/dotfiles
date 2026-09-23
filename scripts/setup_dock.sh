@@ -39,27 +39,20 @@ dockutil --add '' --type spacer --section apps --no-restart
 # -----------------------
 # 👨‍💻 Dev & Ops
 # -----------------------
-add_app "/Applications/Fork.app"
 add_app "/Applications/Ghostty.app"
+add_app "/Applications/Fork.app"
 add_app "/Applications/Visual Studio Code.app"
+add_app "/Applications/Bruno.app"
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
 # 🌐 Web & AI
 # -----------------------
 add_app "/Applications/Google Chrome.app"
-add_app "/Applications/Microsoft Edge.app"
 dockutil --add '' --type small-spacer --section apps --no-restart
 add_app "/Applications/ChatGPT.app"
 add_app "/Applications/Claude.app"
 add_app "/Applications/Safari.app"
-dockutil --add '' --type spacer --section apps --no-restart
-
-# -----------------------
-# 💼 Client / VDI
-# -----------------------
-add_app "/Applications/Windows App.app"
-add_app "/Applications/zoom.us.app"
 dockutil --add '' --type spacer --section apps --no-restart
 
 # -----------------------
