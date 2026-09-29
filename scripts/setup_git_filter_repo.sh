@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🔧 Checking git-filter-repo..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=scripts/lib/common.sh
+source "$SCRIPT_DIR/lib/common.sh"
 
-if ! command -v git-filter-repo &>/dev/null; then
-  echo "❌ git-filter-repo not found. Please install it first with 'brew install git-filter-repo'"
-  exit 1
+step "Checking git-filter-repo..."
+activate_brew || true
+
+if command -v git-filter-repo &>/dev/null; then
+  ok "git-filter-repo found: $(git filter-repo --version 2>/dev/null)"
+else
+  warn "git-filter-repo not found. Install it with: brew install git-filter-repo"
 fi
-
-echo "✅ git-filter-repo found: $(git filter-repo --version 2>/dev/null)"

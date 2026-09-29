@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=scripts/lib/common.sh
+source "$SCRIPT_DIR/lib/common.sh"
+
 VAULT_NAME="ObsidiJan"
 VAULT_PATH="$HOME/Documents/Obsidian"
 CONFIG_DIR="$HOME/Library/Application Support/obsidian"
 VAULT_REGISTRY="$CONFIG_DIR/obsidian.json"
 VAULT_CONFIG_DIR="$VAULT_PATH/.obsidian"
-DOTFILES_OBSIDIAN_CONFIG="$PWD/.config/obsidian"
+DOTFILES_OBSIDIAN_CONFIG="$(cd "$SCRIPT_DIR/.." && pwd)/.config/obsidian"
 
 echo "🔮 Setting up Obsidian configuration..."
 

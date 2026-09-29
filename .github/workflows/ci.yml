@@ -12,12 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run shellcheck
-        run: shellcheck --severity=error scripts/*.sh
+        run: shellcheck --severity=error scripts/*.sh scripts/lib/*.sh
 
   brewfile:
     name: Validate Brewfile
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Parse Brewfile
-        run: brew bundle list --file=Brewfile >/dev/null
+      # The Brewfile branches on HOMEBREW_DOTFILES_NO_ADMIN, so both paths have to
+      # parse. Checking only the default would let a syntax error hide in the
+      # no-admin branch until someone provisions a machine without admin rights.
+      - name: Parse Brewfile (admin)
+        run: HOMEBREW_DOTFILES_NO_ADMIN=0 brew bundle list --file=Brewfile >/dev/null
+      - name: Parse Brewfile (no-admin)
+        run: HOMEBREW_DOTFILES_NO_ADMIN=1 brew bundle list --file=Brewfile >/dev/null
