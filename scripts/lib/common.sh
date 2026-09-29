@@ -108,6 +108,21 @@ activate_brew() {
   export HOMEBREW_CASK_OPTS="--appdir=$appdir"
 }
 
+# --- Corporate TLS interception --------------------------------------------
+
+# The office network re-signs TLS. macOS's keychain trusts the gateway root but
+# language runtimes ship their own trust stores and do not, so anything using
+# them fails with "self signed certificate in certificate chain". Node is the one
+# that bites during bootstrap: `brew bundle` installs VS Code extensions and npm
+# globals, and both go through Node.
+#
+# Python's equivalent (SSL_CERT_FILE / REQUESTS_CA_BUNDLE) is set in the shell
+# config; this covers the Node side for the scripts.
+CORPORATE_CA_BUNDLE="${CORPORATE_CA_BUNDLE:-$HOME/.config/certs/aria-ca.pem}"
+if [[ -f "$CORPORATE_CA_BUNDLE" ]]; then
+  export NODE_EXTRA_CA_CERTS="$CORPORATE_CA_BUNDLE"
+fi
+
 # --- Output ----------------------------------------------------------------
 
 step() { echo "▶ $*"; }

@@ -169,7 +169,15 @@ vscode "redhat.vscode-yaml"
 vscode "vstirbu.vscode-mermaid-preview"
 
 # npm Global Packages
-npm "@anthropic-ai/claude-code"
-npm "@mermaid-js/mermaid-cli"
-npm "pptxgenjs"
-npm "opencode-ai" if no_admin   # prebuilt opencode; the brew formula needs LLVM
+#
+# `brew bundle` resolves an `npm` entry by installing the *Homebrew* node
+# formula, regardless of a node already being on PATH. On a user prefix that
+# formula has no relocatable bottle and its build pulls in LLVM — the exact
+# multi-hour compile the fnm swap above exists to avoid. So on a no-admin
+# machine the npm globals are installed by scripts/install_apps.sh using fnm's
+# node instead, and are listed here only for the admin path.
+unless no_admin
+  npm "@anthropic-ai/claude-code"
+  npm "@mermaid-js/mermaid-cli"
+  npm "pptxgenjs"
+end

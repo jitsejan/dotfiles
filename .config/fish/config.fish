@@ -28,9 +28,14 @@ end
 # Regenerate after a new corporate root is pushed:
 #   security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain > ~/.config/certs/aria-ca.pem
 #   security find-certificate -a -p /Library/Keychains/System.keychain >> ~/.config/certs/aria-ca.pem
+# Each runtime ships its own trust store and needs pointing at the keychain
+# export separately: SSL_CERT_FILE/REQUESTS_CA_BUNDLE for Python, and
+# NODE_EXTRA_CA_CERTS for Node — without the latter, `code --install-extension`
+# and `npm install` fail with "self signed certificate in certificate chain".
 if test -f $HOME/.config/certs/aria-ca.pem
     set -gx SSL_CERT_FILE $HOME/.config/certs/aria-ca.pem
     set -gx REQUESTS_CA_BUNDLE $SSL_CERT_FILE
+    set -gx NODE_EXTRA_CA_CERTS $SSL_CERT_FILE
 end
 
 # --- Aliases ----------------------------------------------------------------
