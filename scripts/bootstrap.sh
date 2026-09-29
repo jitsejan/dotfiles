@@ -101,6 +101,7 @@ fi
 ./scripts/setup_fork.sh || true
 ./scripts/setup_terraform.sh || true
 ./scripts/setup_git_filter_repo.sh || true
+./scripts/setup_iterm2.sh || true
 ./scripts/setup_dock.sh || true
 
 # Anything skipped for lack of admin is listed rather than silently dropped.
