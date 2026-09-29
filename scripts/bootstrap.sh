@@ -78,12 +78,17 @@ link_config "$REPO_ROOT/.config/zsh" ~/.config/zsh
 mkdir -p ~/.config/git
 link_config "$REPO_ROOT/.config/git/personal.gitconfig" ~/.config/git/personal.gitconfig
 
+# VS Code only creates User/ on first launch, but it reads the directory at
+# startup — so if the app is installed we can create it ourselves and have the
+# settings apply from the very first run, instead of telling the user to launch
+# VS Code and then re-run bootstrap.
 VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
-if [[ -d "$VSCODE_USER_DIR" ]]; then
+if [[ -d "$VSCODE_USER_DIR" ]] || find_app "Visual Studio Code.app" >/dev/null; then
+  mkdir -p "$VSCODE_USER_DIR"
   link_config "$REPO_ROOT/.config/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
   link_config "$REPO_ROOT/.config/vscode/keybindings.json" "$VSCODE_USER_DIR/keybindings.json"
 else
-  skip "VS Code config (VS Code not launched yet — re-run bootstrap after first launch)"
+  skip "VS Code config (VS Code not installed)"
 fi
 
 ./scripts/setup_shell.sh || true

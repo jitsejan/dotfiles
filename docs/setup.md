@@ -221,6 +221,36 @@ Moving the prefix to `~/homebrew` (the location a fresh no-admin install uses)
 would restore the sandbox, but requires reinstalling everything — including the
 slow source builds. Deferred deliberately; it belongs in its own PR.
 
+### When a source build can't fetch its tarball
+
+Two constraints compound here. A formula without a relocatable bottle builds from
+source, and the office network (Cloudflare Gateway) re-signs or blocks some
+upstream hosts. The symptom is either a DNS failure *inside the build sandbox* —
+which restricts network access even when the host resolves fine from your shell —
+or a checksum mismatch, which means a block page arrived instead of the tarball:
+
+```
+curl: (6) Could not resolve host: invisible-mirror.net
+Error: Formula reports different checksum
+```
+
+`tmux` hit this: its dependency `ncurses` has no relocatable bottle, and
+`invisible-mirror.net` is not reachable through the proxy. The fix is to fetch the
+identical tarball from a mirror that *is* reachable and seed Homebrew's cache with
+it, then install normally:
+
+```bash
+curl -fsSL -o /tmp/ncurses.tar.gz https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz
+shasum -a 256 /tmp/ncurses.tar.gz          # must match what brew reported
+cp /tmp/ncurses.tar.gz "$(brew --cache --build-from-source ncurses)"
+brew install tmux
+```
+
+`brew --cache --build-from-source <formula>` prints the exact path and filename
+Homebrew expects, so the copy is all that is needed — Homebrew verifies the
+checksum and skips the download. Generalise this to any formula whose source host
+the network blocks.
+
 ### Fish without `chsh`
 
 `chsh` refuses any shell that isn't listed in `/etc/shells`, and adding a line
