@@ -109,12 +109,11 @@ that the current machine doesn't take.
 | **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, shellcheck, tree, zoxide |
 | **Dev Apps** | fork, visual-studio-code |
-| **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice, zoom *(admin only)* |
-| **Client / VDI** | windows-app, intune-company-portal — both *admin only* (`.pkg` installers) |
+| **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice |
 | **Browsers** | google-chrome, microsoft-edge |
 | **AI Tools** | chatgpt, claude |
 | **DB Drivers** | unixodbc, msodbcsql18 (MS SQL ODBC) |
-| **Docs** | pandoc, mactex *(admin only)* |
+| **Docs** | pandoc |
 | **Fonts** | font-jetbrains-mono-nerd-font |
 | **VS Code** | 18 extensions (Python, Jupyter, Terraform, YAML, PlantUML, Mermaid, Atlassian, Monokai Pro, Makefile, rainbow-csv…) |
 | **npm globals** | @anthropic-ai/claude-code, @mermaid-js/mermaid-cli, pptxgenjs |
@@ -274,17 +273,16 @@ Docker API in a user-owned Lima VM, so the `docker` and `docker compose` CLIs
 behave identically with no escalation. `setup_docker.sh` prefers Docker Desktop
 when it's installed and falls back to colima otherwise.
 
-### What still can't be automated
+### Software deliberately left out
 
-Four casks ship a `.pkg` installer, which always needs a password. On a no-admin
-machine the Brewfile skips them and `bootstrap.sh` prints them as manual steps:
+`zoom`, `windows-app`, `intune-company-portal` and `mactex` all ship `.pkg`
+installers that need an admin password — and none of them are wanted, so they are
+**not tracked in the Brewfile at all** rather than skipped conditionally. A drift
+check should not report them as missing. If LaTeX is needed, the tracked `pandoc`
+plus `tinytex` (which installs into `$HOME`) is the no-admin route.
 
-| Cask | Workaround |
-|---|---|
-| `zoom` | Use the web client, or ask IT to push it |
-| `windows-app` | Ask IT (it's the managed VDI client anyway) |
-| `intune-company-portal` | Ask IT — enrolment is their job |
-| `mactex` | Use `tinytex` (installs into `$HOME`) with the tracked `pandoc` |
+Note `zoom.us.app` may still be present in `/Applications`, pushed by corporate
+device management. That is IT's copy and not managed here.
 
 ## Shell — Fish + Starship
 
@@ -377,7 +375,7 @@ Each is idempotent — verifies the app/binary exists, then configures it:
 | `install_node.sh` | Ensures node + npm exist before the Brewfile's npm entries — via fnm without admin. **Sourced, not executed.** |
 | `setup_shell.sh` | Makes Fish the interactive shell — `chsh` with admin, a zsh handoff without. |
 | `setup_docker.sh` | Prefers Docker Desktop; falls back to starting a colima VM when Desktop isn't installed. |
-| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → client/VDI → comms) with spacers; finds apps in `~/Applications` as well as `/Applications`; skips any app that isn't installed; disables `show-recents`. **Clears the Dock first**, so set `DOTFILES_SKIP_DOCK=1` to leave an existing Dock alone. |
+| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → lifestyle/system) with spacers; finds apps in `~/Applications` as well as `/Applications`; skips any app that isn't installed; disables `show-recents`. **Clears the Dock first**, so set `DOTFILES_SKIP_DOCK=1` to leave an existing Dock alone. |
 | `setup_terraform.sh` | Verifies Terraform + Terragrunt, ensures `~/.terraform.d`. |
 | `setup_beyondcompare.sh` | Symlinks the `bcomp` CLI into `/usr/local/bin`, or `~/.local/bin` without admin. |
 | `setup_fork.sh` | Verifies Fork + checks global git user config. |

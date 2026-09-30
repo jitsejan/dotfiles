@@ -137,16 +137,11 @@ brew "pandoc"
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
 
-# --- Admin-only entries ----------------------------------------------------
-# Each of these ships a .pkg installer (or a privileged helper) and cannot be
-# installed without a sudo password, so they are skipped on a no-admin machine.
-# bootstrap.sh prints them as manual steps instead of failing.
-unless no_admin
-  cask "zoom"                   # video calls (pkg installer)
-  cask "mactex"                 # LaTeX distribution (pkg installer)
-  cask "windows-app"            # Microsoft VDI client (pkg installer)
-  cask "intune-company-portal"  # client device management (pkg installer)
-end
+# Deliberately not tracked: zoom, windows-app, intune-company-portal and mactex.
+# All four ship .pkg installers that need an admin password, and none of them are
+# wanted — zoom and the VDI client aren't needed, Intune enrolment is IT's job,
+# and pandoc + tinytex (which installs into $HOME) covers LaTeX without admin.
+# Don't reintroduce them as "missing" drift.
 
 # VS Code Extensions
 #

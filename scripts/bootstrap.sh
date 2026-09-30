@@ -105,12 +105,12 @@ fi
 ./scripts/setup_iterm2.sh || true
 ./scripts/setup_dock.sh || true
 
-# Anything skipped for lack of admin is listed rather than silently dropped.
+# Anything substituted for lack of admin is named rather than silently dropped.
 if no_admin; then
-  step "Software that needs an admin password (skipped):"
-  echo "  • Docker Desktop        → colima was set up instead"
-  echo "  • zoom, windows-app, intune-company-portal → ask IT, or use the web versions"
-  echo "  • mactex                → for LaTeX without admin, use: brew install pandoc + tinytex"
+  step "Substitutions made because there is no admin password:"
+  echo "  • Docker Desktop → colima"
+  echo "  • node (brew)    → fnm + upstream's prebuilt binaries"
+  echo "  • opencode       → its npm package"
 fi
 
 echo

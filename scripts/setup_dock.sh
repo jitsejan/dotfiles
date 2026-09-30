@@ -68,11 +68,6 @@ add_app "Claude.app"
 add_app "Safari.app"
 spacer
 
-# 💼 Client / VDI
-add_app "Windows App.app"
-add_app "zoom.us.app"
-spacer
-
 # 🧘 Lifestyle & System
 add_app "Music.app"
 add_app "Messages.app"
