@@ -1,0 +1,6 @@
+# Identity for personal projects. Included by ~/.gitconfig only for repos under
+# ~/code/personal (see the includeIf that bootstrap.sh installs), so a work repo
+# can never accidentally pick up this address.
+[user]
+	name = Jitse-Jan
+	email = code@jitsejan.com

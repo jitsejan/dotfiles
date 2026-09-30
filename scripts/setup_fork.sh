@@ -1,19 +1,25 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🍴 Checking Fork Git client..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=scripts/lib/common.sh
+source "$SCRIPT_DIR/lib/common.sh"
 
-if [[ ! -d "/Applications/Fork.app" ]]; then
-  echo "❌ Fork.app not found. Please install it first with 'brew install --cask fork'"
-  exit 1
+step "Checking Fork Git client..."
+
+if FORK_APP="$(find_app "Fork.app")"; then
+  ok "Fork found at $FORK_APP"
+else
+  warn "Fork.app not found. Install it with: brew install --cask fork"
 fi
 
-echo "✅ Fork Git client found"
-
-if ! git config --global user.name >/dev/null 2>&1 || ! git config --global user.email >/dev/null 2>&1; then
-  echo "⚠️  Git user configuration not found. Consider setting:"
-  echo "   git config --global user.name 'Your Name'"
-  echo "   git config --global user.email 'your.email@example.com'"
+# Check the identity that actually applies here, not the global one. Identity is
+# scoped per-directory with includeIf (see setup_git_identity.sh), so a repo can
+# be correctly configured while `git config --global user.email` is deliberately
+# empty — checking --global would report a problem that does not exist.
+if git config user.name >/dev/null 2>&1 && git config user.email >/dev/null 2>&1; then
+  ok "Git identity here: $(git config user.name) <$(git config user.email)>"
 else
-  echo "✅ Git configured for: $(git config --global user.name) <$(git config --global user.email)>"
+  warn "No git identity resolves in this directory."
+  manual_step "Set a git identity for this tree: git config user.name '...' && git config user.email '...'"
 fi

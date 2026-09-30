@@ -22,12 +22,35 @@ code --list-extensions | sort   # if `code` CLI is available
 
 ## 2. Gather tracked state
 
+**Do not grep the Brewfile.** It is Ruby, and entries inside its `if no_admin` /
+`unless no_admin` blocks are indented, so an anchored `grep '^brew "'` silently
+misses them and reports installed packages as untracked. Ask `brew` to evaluate
+it instead:
+
+Source `scripts/lib/common.sh` first. It exports `HOMEBREW_DOTFILES_NO_ADMIN` to
+match this machine — without it `brew bundle list` silently evaluates the *admin*
+branch and you would audit against the wrong package list:
+
 ```bash
-grep -oE '^brew "[^"]+"' Brewfile | sed 's/brew "//;s/"//' | sort > /tmp/tracked_formula.txt
-grep -oE '^cask "[^"]+"' Brewfile | sed 's/cask "//;s/"//' | sort > /tmp/tracked_cask.txt
-grep -oE '^vscode "[^"]+"' Brewfile | sed 's/vscode "//;s/"//' | sort
-grep -oE '^npm "[^"]+"' Brewfile | sed 's/npm "//;s/"//' | sort
+source scripts/lib/common.sh    # exports HOMEBREW_DOTFILES_NO_ADMIN
+
+brew bundle list --brews  --file=Brewfile | sort > /tmp/tracked_formula.txt
+brew bundle list --casks  --file=Brewfile | sort > /tmp/tracked_cask.txt
+brew bundle list --vscode --file=Brewfile | sort
+brew bundle list --taps   --file=Brewfile | sort
 ```
+
+Those commands also print `Skipping cask …` lines for anything
+`cask_unless_present` filtered out; strip them with `grep -v '^Skipping'` before
+diffing. To inspect the other machine type's list, set
+`HOMEBREW_DOTFILES_NO_ADMIN=0` or `=1` explicitly — the `HOMEBREW_` prefix is
+required, since `brew` strips variables without it.
+
+Two things that are tracked but won't appear in that output, and must not be
+reported as untracked:
+- Entries skipped by `cask_unless_present` (Chrome, Edge) because the app is
+  already installed outside Homebrew.
+- Entries excluded on this machine by the `no_admin` branch.
 
 Note: some formulae are tracked under a tap-qualified name (e.g.
 `microsoft/mssql-release/msodbcsql18`) but `brew list` reports the bare name
@@ -62,12 +85,32 @@ For each gap, ask (or infer from context/recency) whether it's:
   history — check `git log --oneline -20` for context) → offer to uninstall.
 - **A transitive dependency, not a deliberate install** → leave alone, don't
   track it.
+- **Installed outside Homebrew by corporate IT** (Slack, Teams, JumpCloud,
+  Darktrace, NinjaRMM, Chrome…) → leave alone. On a managed Mac these are pushed
+  by device management; tracking them in the Brewfile would create a second,
+  divergent copy in `~/Applications`.
 - **Tracked but not installed** → either install it (`brew bundle --file=Brewfile`)
   or remove the stale entry if it's no longer wanted.
 
 When in doubt on a specific item, ask the user rather than guessing — this
 mirrors how the original Mac audit worked (see git history around the
 `chore/mac-cleanup-audit` branch/PR for the pattern).
+
+## 4b. Before adding any new formula to the Brewfile
+
+Homebrew runs from a user-owned prefix on this Mac, so a formula whose bottle
+isn't relocatable gets compiled from source rather than poured:
+
+```bash
+brew info --json=v2 <formula> | python3 -c "import sys,json; f=json.load(sys.stdin)['formulae'][0]; print({k:v['cellar'] for k,v in f['bottle']['stable']['files'].items()})"
+brew deps --include-build <formula> | grep llvm    # empty is what you want
+```
+
+A `cellar` starting with `:` pours fine. A path like `/opt/homebrew/Cellar` means
+a source build — acceptable for a small library, but if it also build-depends on
+`llvm` it is a multi-hour compile and needs a prebuilt alternative instead (this
+is why `node` → `fnm` and `opencode` → `npm "opencode-ai"` on the no-admin
+branch).
 
 ## 5. Apply changes
 
