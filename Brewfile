@@ -149,6 +149,14 @@ unless no_admin
 end
 
 # VS Code Extensions
+#
+# These stay the single source of truth, but `brew bundle` cannot install them on
+# a network that re-signs TLS: it shells out to `code`, and brew sanitizes its
+# subprocess environment, dropping NODE_EXTRA_CA_CERTS. Electron then rejects the
+# marketplace certificate with "self signed certificate in certificate chain".
+# scripts/install_vscode_extensions.sh reads this same list (by evaluating the
+# Brewfile's admin branch) and installs them with the CA variable intact.
+unless no_admin
 vscode "atlassian.atlascode"
 vscode "hashicorp.terraform"
 vscode "jebbs.plantuml"
@@ -167,6 +175,7 @@ vscode "ms-vscode.makefile-tools"
 vscode "openai.chatgpt"
 vscode "redhat.vscode-yaml"
 vscode "vstirbu.vscode-mermaid-preview"
+end
 
 # npm Global Packages
 #
