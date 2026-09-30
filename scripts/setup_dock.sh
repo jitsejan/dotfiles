@@ -37,6 +37,21 @@ add_app() {
   fi
 }
 
+# Add the first of several candidate bundle names that is actually installed.
+# Used where one app has more than one common bundle name (Homebrew's "iTerm.app"
+# versus a hand-installed "iTerm 2.app") so only one icon ends up in the Dock.
+add_first_app() {
+  local name path
+  for name in "$@"; do
+    if path="$(find_app "$name")"; then
+      dockutil --add "$path" --no-restart >/dev/null
+      echo "  + $name"
+      return 0
+    fi
+  done
+  skip "$* (none installed)"
+}
+
 spacer()       { dockutil --add '' --type spacer --section apps --no-restart >/dev/null; }
 small_spacer() { dockutil --add '' --type small-spacer --section apps --no-restart >/dev/null; }
 
@@ -55,7 +70,7 @@ spacer
 # 👨‍💻 Dev & Ops
 add_app "Fork.app"
 add_app "Ghostty.app"
-add_app "iTerm.app"
+add_first_app "iTerm 2.app" "iTerm.app"
 add_app "Visual Studio Code.app"
 spacer
 
@@ -82,5 +97,12 @@ dockutil --add "$HOME/Downloads" --view grid --display folder --sort dateadded -
 # own preference domain, so it works without admin.
 defaults write com.apple.dock show-recents -bool false
 
-killall Dock
+# Restart through launchd rather than `killall Dock`. A bare kill leaves the Dock
+# to be respawned by launchd anyway, but it has been observed coming back in a
+# state where the process runs and nothing draws — launchd reported the agent
+# exiting with code 1 across repeated respawns. kickstart -k tears the service
+# down and brings it up cleanly, which recovers reliably.
+if ! launchctl kickstart -k "gui/$(id -u)/com.apple.Dock.agent" 2>/dev/null; then
+  killall Dock 2>/dev/null || true
+fi
 ok "Dock setup complete"
