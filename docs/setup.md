@@ -350,12 +350,28 @@ that, `psql` looks missing even when it is installed.
 
 ## Python tooling
 
-`install_python_tools.sh` installs:
+**uv** (Astral) comes from the Brewfile — fast package installer/resolver plus
+project and Python-version manager (it also replaces Rye, now maintenance-only).
+Its bottle pours cleanly.
 
-- **uv** (Astral) — fast package installer/resolver + project/Python-version
-  manager (also replaces Rye, now maintenance-only).
-- Via **pipx** (isolated): `ruff` (lint + format + import sorting, replacing
-  black & isort) and `pyright`.
+`install_python_tools.sh` installs the rest via **pipx**, each in its own
+virtualenv:
+
+| Tool | Purpose |
+|---|---|
+| `ruff` | lint + format + import sorting (replaces black & isort) |
+| `pyright` | type checking |
+| `harlequin` | SQL IDE for the terminal, with `harlequin-postgres` injected |
+
+These deliberately do *not* live in the Brewfile. pipx installs prebuilt wheels
+into `$HOME` — no compiler, no admin — and on this machine that matters more than
+tidiness: `brew install harlequin` pulls in `gcc` and `llvm@22`, neither of which
+has a relocatable bottle, so Homebrew would compile both from source for a tool
+that pip ships ready-made. Check any new Python CLI the same way before reaching
+for a formula.
+
+harlequin speaks DuckDB out of the box; the injected `harlequin-postgres` adapter
+covers the remote Postgres databases this machine connects to.
 
 Workflow leans on **uv**, with Starship surfacing project details.
 

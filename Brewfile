@@ -91,6 +91,15 @@ unless no_admin
   brew "opencode"      # AI coding agent for the terminal
 end
 
+# Secrets & Encryption
+# All three have `:any_skip_relocation` bottles, so they pour into the user
+# prefix rather than compiling. openbao lists llvm as a *build* dependency, but
+# that never matters while its bottle pours — don't let the dependency list scare
+# you off it.
+brew "age"          # file encryption, used as the SOPS backend
+brew "sops"         # encrypted config/secret files
+brew "openbao"      # secrets management (Vault fork)
+
 # Command Line Utilities
 brew "bat"          # cat replacement
 brew "btop"         # resource monitor
