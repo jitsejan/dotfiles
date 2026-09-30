@@ -21,10 +21,14 @@ no_admin = ENV["HOMEBREW_DOTFILES_NO_ADMIN"] == "1"
 # friends pushed into /Applications by IT. Without this guard `brew bundle`
 # happily installs a second copy into ~/Applications, which then shadows the
 # managed one in Spotlight and drifts out of date separately.
-def cask_unless_present(token, app_name)
+# Several names may be accepted for one cask: iTerm ships as "iTerm.app" from
+# Homebrew but a hand-installed copy is often named "iTerm 2.app", and installing
+# the cask alongside it produces two of the same app in the Dock.
+def cask_unless_present(token, *app_names)
   dirs = [File.expand_path("~/Applications"), "/Applications"]
-  if dirs.any? { |d| File.directory?(File.join(d, app_name)) }
-    puts "Skipping cask #{token} - #{app_name} is already installed outside Homebrew"
+  found = app_names.find { |a| dirs.any? { |d| File.directory?(File.join(d, a)) } }
+  if found
+    puts "Skipping cask #{token} - #{found} is already installed outside Homebrew"
   else
     cask token
   end
@@ -38,7 +42,7 @@ tap "hashicorp/tap"   # terraform — see the Core Development Tools note below
 brew "fish"
 brew "starship"
 cask "ghostty"
-cask "iterm2"
+cask_unless_present "iterm2", "iTerm.app", "iTerm 2.app"
 
 # Core Development Tools
 brew "act"
