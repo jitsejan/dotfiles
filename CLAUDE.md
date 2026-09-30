@@ -11,6 +11,29 @@ structural changes.
   `brew install` / `brew install --cask` ad hoc when asked to add a tool — add the
   entry to `Brewfile` instead, then run `brew bundle`. The Mac's actual state should
   always be derivable from the Brewfile, not the other way around.
+- **Check bottle relocatability before adding a formula.** Homebrew lives in a
+  user prefix here, and a bottle whose `cellar` is a hardcoded path (rather than
+  `:any` / `:any_skip_relocation`) cannot be poured — Homebrew silently compiles
+  it from source instead. That is fine for a small C library and catastrophic for
+  anything that build-depends on LLVM: `node` and `opencode` each triggered a
+  multi-hour LLVM 22 compile, which is why the no-admin branch swaps them for
+  `fnm` and the `opencode-ai` npm package. Check with
+  `brew info --json=v2 <formula>` and look at `bottle.stable.files.*.cellar`,
+  plus `brew deps --include-build <formula> | grep llvm`.
+- **This Mac has no admin rights.** Never write a script that calls `sudo`, `chsh`,
+  or that writes to `/Applications`, `/usr/local/bin`, `/opt` or `/etc/shells`
+  unconditionally — guard it behind `no_admin` from `scripts/lib/common.sh` and
+  provide a user-scoped fallback. Resolve Homebrew's location with `brew_prefix`
+  rather than hardcoding `/opt/homebrew`, and find apps with `find_app` so
+  `~/Applications` is searched too. See [No-admin mode](docs/setup.md#no-admin-mode).
+- **Every script sources `scripts/lib/common.sh`.** It provides admin detection
+  (`no_admin`), path resolution (`brew_prefix`, `app_install_dir`, `find_app`,
+  `writable_bin_dir`), output helpers (`step`/`ok`/`skip`/`warn`), and
+  `manual_step` for recording things the user must do by hand. Don't reimplement
+  these per script.
+- **A missing optional tool is a warning, not a failure.** Setup scripts should
+  `warn` and `exit 0` rather than `exit 1`, so one absent cask never makes a
+  bootstrap run look broken.
 - **Idempotent scripts.** Every `scripts/*.sh` must check "is this already done?"
   before acting, so re-running `bootstrap.sh` is always safe.
 - **Symlinks, not copies.** Tracked configs (`.config/fish`, `.config/ghostty`,
@@ -21,7 +44,12 @@ structural changes.
 - **One PR per change, on a branch.** Never commit directly to `master`. Push a
   branch, open a PR, wait for CI (`.github/workflows/ci.yml`: shellcheck + Brewfile
   validation) to pass, then merge.
-- **New shell scripts must pass `shellcheck --severity=error`** (CI enforces this).
+- **New shell scripts must pass `shellcheck --severity=error`** (CI enforces this,
+  across both `scripts/*.sh` and `scripts/lib/*.sh`).
+- **Brewfile flags need the `HOMEBREW_` prefix.** `brew` strips other variables
+  from the environment it evaluates the Brewfile in, so the no-admin switch is
+  `HOMEBREW_DOTFILES_NO_ADMIN`, mirrored from `DOTFILES_NO_ADMIN` in `common.sh`.
+  CI parses the Brewfile both ways.
 
 ## Skills
 
@@ -42,3 +70,5 @@ structural changes.
   `brew bundle dump --file=- --describe` and diff against `Brewfile`.
 - **Provision a new machine** → use the `machine-setup` skill, or manually
   `git clone ... && ./scripts/bootstrap.sh`.
+- **Test the no-admin path on an admin Mac** → `DOTFILES_NO_ADMIN=1 ./scripts/bootstrap.sh`.
+- **Re-run bootstrap without wiping the Dock** → `DOTFILES_SKIP_DOCK=1 ./scripts/bootstrap.sh`.
