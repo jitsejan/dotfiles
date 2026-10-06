@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run shellcheck
-        run: shellcheck --severity=error scripts/*.sh scripts/lib/*.sh
+        run: shellcheck --severity=error scripts/*.sh scripts/lib/*.sh .claude/statusline.sh
 
   brewfile:
     name: Validate Brewfile

@@ -34,7 +34,7 @@ dotfiles/
 ├── .gitignore               # ignores secrets, .DS_Store, .venv, swap files
 ├── .config/
 │   ├── fish/                # shell config + functions
-│   ├── ghostty/             # terminal config (font, colors)
+│   ├── iterm2/             # terminal profile (DynamicProfiles JSON)
 │   ├── starship.toml        # prompt
 │   ├── obsidian/            # tracked Obsidian config (app, theme, plugins)
 │   ├── zsh/                 # zsh → fish handoff (no-admin machines)
@@ -71,7 +71,6 @@ dotfiles/
    at the end, so it doesn't scroll past unnoticed.
 
 The symlinks created in step 2:
-   - `~/.config/ghostty` → repo `.config/ghostty`
    - `~/.config/starship.toml` → repo `.config/starship.toml`
    - `~/.config/fish` → repo `.config/fish`
    - `~/.config/zsh` → repo `.config/zsh` (the Fish handoff snippet)
@@ -105,7 +104,7 @@ that the current machine doesn't take.
 | Group | Packages |
 |-------|----------|
 | **Taps** | `microsoft/mssql-release`, `hashicorp/tap` |
-| **Shell & Terminal** | fish, starship, ghostty, iterm2 |
+| **Shell & Terminal** | fish, starship, iterm2 |
 | **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, shellcheck, tree, zoxide |
 | **Dev Apps** | fork, visual-studio-code |
@@ -257,8 +256,8 @@ there needs `sudo`. So the login shell stays zsh and `~/.zshrc` sources
 `.config/zsh/launch-fish.zsh`, which `exec`s Fish for interactive shells. The
 logic is tracked in this repo; `~/.zshrc` only gets a marked one-line hook.
 
-This is deliberately terminal-agnostic — it works in iTerm2, Terminal.app,
-Ghostty and VS Code alike, rather than relying on one terminal's "run this
+This is deliberately terminal-agnostic — it works in iTerm2, Terminal.app
+and VS Code alike, rather than relying on one terminal's "run this
 command" setting. Two escape hatches: `DOTFILES_NO_FISH=1` skips the handoff for
 a session, and the `INSIDE_FISH` guard prevents a zsh→fish→zsh loop.
 
@@ -311,14 +310,58 @@ device management. That is IT's copy and not managed here.
   (`rye.lock`) and **uv** (`uv.lock`) projects with custom segments.
 - Right-side: Python info, command duration, clock (`HH:MM:SS`).
 
-## Terminal — Ghostty
+## Terminal — iTerm2
 
-`.config/ghostty/config` configures:
+iTerm2 is the only terminal tracked here. Ghostty was dropped in favour of it;
+the Monokai palette below is the one that was carried through Kitty and Ghostty
+before it, so colours are unchanged from the previous setup.
 
-- **Font**: JetBrainsMono Nerd Font.
-- **Colors**: custom Monokai-ish palette (dark `#191919` background) ported from the
-  previous Kitty theme.
-- Native macOS tabs/splits, `copy-on-select`, option-as-alt, saved window state.
+### Why a DynamicProfile
+
+iTerm2 keeps its settings in `com.googlecode.iterm2.plist`, holds them in memory
+while running, and writes the whole file out **on quit** — so anything written
+into that plist from a script is silently clobbered the next time iTerm2 closes.
+
+[DynamicProfiles](https://iterm2.com/documentation-dynamic-profiles.html) avoid
+that: iTerm2 only ever *reads* the JSON files in its DynamicProfiles directory,
+picks changes up within a few seconds, and needs no restart. So the profile is
+tracked as plain JSON and symlinked in, like every other config here:
+
+```
+.config/iterm2/DynamicProfiles/monokai.json
+  → ~/Library/Application Support/iTerm2/DynamicProfiles/monokai.json
+```
+
+`scripts/setup_iterm2.sh` validates the JSON and creates that symlink.
+
+### What it sets
+
+- **Font**: `JetBrainsMonoNFM-Regular` 13 — the Nerd Font *Mono* variant, which
+  is the correct one for a terminal. Powerline glyphs enabled for Starship.
+- **Colors**: the Monokai palette (dark `#191919` background, `#c4c4b5`
+  foreground), all 16 ANSI slots plus cursor, selection and link colours.
+- **Window**: 120×34, 6px-equivalent padding, 50k lines of scrollback.
+- **Behaviour**: block cursor, non-blinking; both option keys send Esc+ (so
+  option-as-alt works); silenced bell.
+
+One thing a DynamicProfile *cannot* do is make itself the default profile — that
+pointer lives in the main plist. `setup_iterm2.sh` records it as a manual step:
+**Settings → Profiles → Monokai → Other Actions… → Set as Default**.
+
+## Claude Code statusline
+
+`.claude/statusline.sh` renders a Monokai-coloured status line in Claude Code:
+
+```
+~/code/personal/dotfiles · ⎇ master · Opus 5 · 12k
+```
+
+Directory (cyan), git branch with a `*` dirty marker (green/orange), model
+(purple) and context usage (pink) — the same ANSI colours as the iTerm2 profile.
+
+`~/.claude/settings.json` is **not** tracked, because it holds MCP server tokens.
+So `scripts/setup_claude_statusline.sh` merges only the `statusLine` key into it,
+writing via a temp file and leaving every other key untouched.
 
 ## Editor — VS Code
 

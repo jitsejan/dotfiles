@@ -70,7 +70,6 @@ activate_brew || true
 # in place, and so setup_shell.sh can find the tracked zsh handoff snippet.
 step "Symlinking configs..."
 mkdir -p ~/.config
-link_config "$REPO_ROOT/.config/ghostty" ~/.config/ghostty
 link_config "$REPO_ROOT/.config/starship.toml" ~/.config/starship.toml
 link_config "$REPO_ROOT/.config/fish" ~/.config/fish
 link_config "$REPO_ROOT/.config/zsh" ~/.config/zsh
@@ -103,6 +102,7 @@ fi
 ./scripts/setup_terraform.sh || true
 ./scripts/setup_git_filter_repo.sh || true
 ./scripts/setup_iterm2.sh || true
+./scripts/setup_claude_statusline.sh || true
 ./scripts/setup_dock.sh || true
 
 # Anything substituted for lack of admin is named rather than silently dropped.

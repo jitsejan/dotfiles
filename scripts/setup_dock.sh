@@ -68,15 +68,14 @@ add_app "Notes.app"
 spacer
 
 # 👨‍💻 Dev & Ops
-add_app "Fork.app"
-add_app "Ghostty.app"
 add_first_app "iTerm 2.app" "iTerm.app"
+add_app "Fork.app"
 add_app "Visual Studio Code.app"
+add_app "Bruno.app"
 spacer
 
 # 🌐 Web & AI
 add_app "Google Chrome.app"
-add_app "Microsoft Edge.app"
 small_spacer
 add_app "ChatGPT.app"
 add_app "Claude.app"

@@ -41,7 +41,6 @@ tap "hashicorp/tap"   # terraform — see the Core Development Tools note below
 # Shell & Terminal
 brew "fish"
 brew "starship"
-cask "ghostty"
 cask_unless_present "iterm2", "iTerm.app", "iTerm 2.app"
 
 # Core Development Tools
@@ -120,6 +119,7 @@ brew "tree"         # directory tree display
 brew "zoxide"       # cd replacement
 
 # Development Applications
+cask "bruno"                # API client (open-source Postman alternative)
 cask "fork"
 cask "visual-studio-code"
 
@@ -134,7 +134,6 @@ cask "libreoffice"          # office suite
 # Browsers — usually pre-installed by IT on a managed Mac, so only install a
 # copy if one isn't already there.
 cask_unless_present "google-chrome", "Google Chrome.app"
-cask_unless_present "microsoft-edge", "Microsoft Edge.app"
 
 # AI Tools
 cask "chatgpt"
@@ -155,6 +154,11 @@ cask "font-jetbrains-mono-nerd-font"
 # wanted — zoom and the VDI client aren't needed, Intune enrolment is IT's job,
 # and pandoc + tinytex (which installs into $HOME) covers LaTeX without admin.
 # Don't reintroduce them as "missing" drift.
+#
+# Also deliberately untracked: ghostty and microsoft-edge. iTerm2 replaced
+# Ghostty as the one terminal (see docs/setup.md), and Edge isn't wanted even
+# where IT has already pushed a copy. Both may still be present on disk; neither
+# should come back as drift.
 
 # VS Code Extensions
 #
