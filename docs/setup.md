@@ -106,14 +106,14 @@ that the current machine doesn't take.
 |-------|----------|
 | **Taps** | `microsoft/mssql-release`, `hashicorp/tap` |
 | **Shell & Terminal** | fish, starship, ghostty, iterm2 |
-| **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
-| **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glow, jq, qpdf, ripgrep, shellcheck, tree, zoxide |
+| **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, harlequin, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
+| **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glab, glow, jq, oha, qpdf, ripgrep, shellcheck, tree, zoxide |
 | **Dev Apps** | fork, visual-studio-code |
 | **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice |
 | **Browsers** | google-chrome, microsoft-edge |
 | **AI Tools** | chatgpt, claude |
 | **DB Drivers** | unixodbc, msodbcsql18 (MS SQL ODBC) |
-| **Docs** | pandoc |
+| **Docs** | pandoc, librsvg, poppler |
 | **Fonts** | font-jetbrains-mono-nerd-font |
 | **VS Code** | 18 extensions (Python, Jupyter, Terraform, YAML, PlantUML, Mermaid, Atlassian, Monokai Pro, Makefile, rainbow-csv…) |
 | **npm globals** | @anthropic-ai/claude-code, @mermaid-js/mermaid-cli, pptxgenjs |

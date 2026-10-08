@@ -49,6 +49,7 @@ brew "act"
 brew "awscli"
 brew "dockutil"
 brew "duckdb"
+brew "harlequin"    # terminal DB client (DuckDB/Postgres)
 brew "gh"
 brew "git"
 brew "git-filter-repo"
@@ -111,8 +112,10 @@ brew "cmatrix"      # terminal matrix animation
 brew "eza"          # ls replacement
 brew "fd"           # find replacement
 brew "fzf"          # fuzzy finder
+brew "glab"         # GitLab CLI
 brew "glow"         # markdown renderer
 brew "jq"           # JSON processor
+brew "oha"          # HTTP load generator with a TUI
 brew "qpdf"         # PDF transform & inspect
 brew "ripgrep"      # grep replacement
 brew "shellcheck"   # lint scripts/*.sh (matches CI)
@@ -146,6 +149,11 @@ brew "microsoft/mssql-release/msodbcsql18", trusted: true   # MS SQL Server ODBC
 
 # Document Processing
 brew "pandoc"
+brew "librsvg"      # rsvg-convert — SVG→PDF/PNG for pandoc & mermaid output
+# poppler has no relocatable bottle, so it builds from source in this user
+# prefix. It has no llvm build dep, so that is a short compile rather than
+# the multi-hour cascade node/opencode hit — acceptable for pdftotext etc.
+brew "poppler"      # pdftotext / pdfimages / pdfinfo
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
