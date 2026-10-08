@@ -67,6 +67,20 @@ fi
 # brew bundle exits non-zero if any single entry fails. A flaky cask download or a
 # cask that turns out to need admin should not abort the whole bootstrap, so the
 # failure is reported and the run continues.
+# Redirecting stdin is not enough on its own. `brew` runs a formula's install in
+# a separate build process, so the </dev/null here never reaches msodbcsql18's
+# `STDIN.gets` — on an *upgrade* of an already-installed driver it loops forever
+# printing "Please enter YES or NO" with no way to answer. That hung a bootstrap
+# run for 50 minutes before this guard existed.
+#
+# If the driver is already installed, its EULA was accepted at install time, so
+# re-asserting that during an unattended upgrade is a restatement of a decision
+# the user already made — not a new one. Only ever set for an existing install:
+# a first-time install still falls through to the manual step below.
+if brew list --versions msodbcsql18 >/dev/null 2>&1; then
+  export HOMEBREW_ACCEPT_EULA="${HOMEBREW_ACCEPT_EULA:-Y}"
+fi
+
 if ! brew bundle --file="$REPO_ROOT/Brewfile" </dev/null; then
   warn "Some Brewfile entries failed (e.g. a flaky download, or a cask that needs admin)."
   warn "Continuing setup — re-run 'brew bundle' later to retry the failures."
