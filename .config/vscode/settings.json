@@ -5,5 +5,7 @@
     "chat.tools.terminal.autoApprove": {
         "uv": true
     },
-    "atlascode.bitbucket.enabled": true
+    "atlascode.bitbucket.enabled": true,
+    "chat.viewSessions.orientation": "stacked",
+    "atlascode.rovodev.showEntitlementNotifications": false
 }
