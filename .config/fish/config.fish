@@ -20,6 +20,13 @@ if type -q brew
     test -d $libpq_bin && fish_add_path -gP $libpq_bin
 end
 
+# TinyTeX is the LaTeX for this machine (MacTeX's .pkg needs admin). It installs
+# into $HOME and registers nothing on PATH by itself — its own installer would
+# write /etc/paths.d, which needs sudo — so add it here instead. Without this
+# pandoc's PDF output and any bare `pdflatex` call find no engine at all.
+set -l tinytex_bin $HOME/Library/TinyTeX/bin/universal-darwin
+test -d $tinytex_bin && fish_add_path -gP $tinytex_bin
+
 # --- Corporate TLS interception ---------------------------------------------
 # The office network (Cloudflare Gateway) re-signs TLS. The macOS keychain trusts
 # the gateway root but Python's bundled certifi does not, so requests/dbt/dlt fail

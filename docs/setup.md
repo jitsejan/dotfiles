@@ -277,8 +277,24 @@ when it's installed and falls back to colima otherwise.
 `zoom`, `windows-app`, `intune-company-portal` and `mactex` all ship `.pkg`
 installers that need an admin password — and none of them are wanted, so they are
 **not tracked in the Brewfile at all** rather than skipped conditionally. A drift
-check should not report them as missing. If LaTeX is needed, the tracked `pandoc`
-plus `tinytex` (which installs into `$HOME`) is the no-admin route.
+check should not report them as missing.
+
+**LaTeX is TinyTeX**, installed at `~/Library/TinyTeX` (~340MB, vs MacTeX's
+9.7GB) — it unpacks into `$HOME` and needs no admin. It is not a Homebrew
+package, so it is not in the Brewfile; install it with:
+
+```bash
+curl -sL https://yihui.org/tinytex/install-bin-unix.sh | sh
+```
+
+Skip the PATH step its installer offers — that writes `/etc/paths.d` and needs
+sudo. `.config/fish/config.fish` adds `~/Library/TinyTeX/bin/universal-darwin`
+to `PATH` instead, conditionally, so a machine without TinyTeX is unaffected.
+
+TinyTeX ships a minimal package set; add what a document needs with
+`tlmgr install <pkg>`. One trap: anything using `microtype` also needs
+`cm-super`, or the build dies with "auto expansion is only possible with
+scalable fonts".
 
 Note `zoom.us.app` may still be present in `/Applications`, pushed by corporate
 device management. That is IT's copy and not managed here.
