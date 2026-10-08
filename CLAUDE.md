@@ -36,7 +36,7 @@ structural changes.
   bootstrap run look broken.
 - **Idempotent scripts.** Every `scripts/*.sh` must check "is this already done?"
   before acting, so re-running `bootstrap.sh` is always safe.
-- **Symlinks, not copies.** Tracked configs (`.config/fish`, `.config/ghostty`,
+- **Symlinks, not copies.** Tracked configs (`.config/fish`, `.config/iterm2`,
   `starship.toml`) are symlinked into place — never `cp` a tracked config into its
   live location.
 - **Secrets stay out of git.** Check `.gitignore` before tracking anything under

@@ -3,7 +3,7 @@
 ![CI](https://github.com/jitsejan/dotfiles/actions/workflows/ci.yml/badge.svg)
 
 Personal terminal setup using:
-- 👻 Ghostty terminal
+- 🖥️  iTerm2 terminal, Monokai-themed
 - 🚀 Starship prompt with Git + Python (uv)
 - 🍺 Brewfile for reproducible packages
 - 🐍 Python tools like ruff and pyright

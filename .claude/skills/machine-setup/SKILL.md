@@ -146,10 +146,15 @@ mkdir -p ~/.config
 ```
 then symlink (matching `bootstrap.sh`'s `link_config` logic — safe to re-run,
 replaces any existing file/dir at the destination):
-- `.config/ghostty` → `~/.config/ghostty`
 - `.config/starship.toml` → `~/.config/starship.toml`
 - `.config/fish` → `~/.config/fish`
 - `.config/zsh` → `~/.config/zsh`
+
+The iTerm2 Monokai profile is linked separately by `setup_iterm2.sh`, into
+`~/Library/Application Support/iTerm2/DynamicProfiles/` rather than `~/.config`.
+Making it the *default* profile can't be scripted (iTerm2 rewrites that plist on
+quit), so it surfaces as a manual step — surface it to the user rather than
+skipping past it.
 
 Note `bootstrap.sh` does this *before* the shell stage, since `setup_shell.sh`
 needs the zsh handoff snippet to already be linked.
