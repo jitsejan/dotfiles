@@ -158,11 +158,11 @@ end   # MS SQL Server ODBC driver
 
 # Document Processing
 brew "pandoc"
-brew "librsvg"      # rsvg-convert — SVG→PDF/PNG for pandoc & mermaid output
+# brew "librsvg"      # rsvg-convert — SVG→PDF/PNG for pandoc & mermaid output
 # poppler has no relocatable bottle, so it builds from source in this user
 # prefix. It has no llvm build dep, so that is a short compile rather than
 # the multi-hour cascade node/opencode hit — acceptable for pdftotext etc.
-brew "poppler"      # pdftotext / pdfimages / pdfinfo
+# brew "poppler"      # pdftotext / pdfimages / pdfinfo
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
@@ -220,3 +220,16 @@ unless no_admin
   npm "@mermaid-js/mermaid-cli"
   npm "pptxgenjs"
 end
+
+# --- Known not installable on this machine ---------------------------------
+# librsvg and poppler are commented out rather than removed: both need a source
+# build (poppler has no relocatable bottle, librsvg's dependency chain pulls one
+# in), and source builds fail in this Homebrew prefix. The prefix lives inside
+# ~/Documents, which breaks Homebrew's build sandbox — a `python3.14 -m venv`
+# step in gobject-introspection dies inside it, though the identical command
+# succeeds outside brew. HOMEBREW_NO_SANDBOX=1 does not lift it.
+#
+# Everything with a poured bottle is unaffected, which is why this only surfaced
+# when these two were added. The real fix is relocating the prefix out of
+# ~/Documents, which means reinstalling everything — deliberately deferred.
+# Uncomment both once that is done.
