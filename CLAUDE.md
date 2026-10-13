@@ -19,7 +19,11 @@ structural changes.
   multi-hour LLVM 22 compile, which is why the no-admin branch swaps them for
   `fnm` and the `opencode-ai` npm package. Check with
   `brew info --json=v2 <formula>` and look at `bottle.stable.files.*.cellar`,
-  plus `brew deps --include-build <formula> | grep llvm`.
+  plus `brew deps --include-build <formula> | grep llvm`. **A formula's own
+  bottle pouring is not enough** — check its dependencies too. `harlequin` pours
+  fine itself but has `llvm` as a *runtime* dependency, so installing it drags in
+  a multi-hour LLVM build anyway; it belongs in `install_python_tools.sh` via
+  pipx, not the Brewfile.
 - **This Mac has no admin rights.** Never write a script that calls `sudo`, `chsh`,
   or that writes to `/Applications`, `/usr/local/bin`, `/opt` or `/etc/shells`
   unconditionally — guard it behind `no_admin` from `scripts/lib/common.sh` and

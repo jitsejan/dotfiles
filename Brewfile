@@ -48,7 +48,11 @@ brew "act"
 brew "awscli"
 brew "dockutil"
 brew "duckdb"
-brew "harlequin"    # terminal DB client (DuckDB/Postgres)
+# harlequin is deliberately NOT a brew formula: it has llvm as a *runtime*
+# dependency, and llvm's bottle cannot be poured into a user prefix, so
+# `brew install harlequin` compiles LLVM from source — hours of CPU for a tool
+# pip ships as a ready-made wheel. It is installed via pipx in
+# scripts/install_python_tools.sh instead. Do not re-add it here.
 brew "gh"
 brew "git"
 brew "git-filter-repo"
@@ -144,15 +148,21 @@ cask "claude"
 
 # Database Drivers
 brew "unixodbc"                                             # ODBC 3 connectivity for UNIX
-brew "microsoft/mssql-release/msodbcsql18", trusted: true   # MS SQL Server ODBC driver
+# Omitted unless its EULA has been accepted. The formula prompts on stdin from a
+# build subprocess that an unattended run cannot answer, so including it while
+# unaccepted hangs the bootstrap instead of failing. install_brew.sh sets this
+# from the user's recorded acceptance.
+if ENV["HOMEBREW_DOTFILES_MSODBCSQL"] == "1"
+  brew "microsoft/mssql-release/msodbcsql18", trusted: true
+end   # MS SQL Server ODBC driver
 
 # Document Processing
 brew "pandoc"
-brew "librsvg"      # rsvg-convert — SVG→PDF/PNG for pandoc & mermaid output
+# brew "librsvg"      # rsvg-convert — SVG→PDF/PNG for pandoc & mermaid output
 # poppler has no relocatable bottle, so it builds from source in this user
 # prefix. It has no llvm build dep, so that is a short compile rather than
 # the multi-hour cascade node/opencode hit — acceptable for pdftotext etc.
-brew "poppler"      # pdftotext / pdfimages / pdfinfo
+# brew "poppler"      # pdftotext / pdfimages / pdfinfo
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
@@ -210,3 +220,16 @@ unless no_admin
   npm "@mermaid-js/mermaid-cli"
   npm "pptxgenjs"
 end
+
+# --- Known not installable on this machine ---------------------------------
+# librsvg and poppler are commented out rather than removed: both need a source
+# build (poppler has no relocatable bottle, librsvg's dependency chain pulls one
+# in), and source builds fail in this Homebrew prefix. The prefix lives inside
+# ~/Documents, which breaks Homebrew's build sandbox — a `python3.14 -m venv`
+# step in gobject-introspection dies inside it, though the identical command
+# succeeds outside brew. HOMEBREW_NO_SANDBOX=1 does not lift it.
+#
+# Everything with a poured bottle is unaffected, which is why this only surfaced
+# when these two were added. The real fix is relocating the prefix out of
+# ~/Documents, which means reinstalling everything — deliberately deferred.
+# Uncomment both once that is done.

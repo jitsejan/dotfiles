@@ -55,39 +55,42 @@ if no_admin; then
   echo "  (no-admin mode: entries needing sudo are excluded from the Brewfile)"
 fi
 
-# Some formulae prompt on stdin during install — microsoft/mssql-release's
-# msodbcsql18 falls back to `STDIN.gets` for EULA acceptance when
-# HOMEBREW_ACCEPT_EULA is unset. In an unattended bootstrap that blocks forever
-# with no output. Redirecting stdin from /dev/null turns any such prompt into an
-# immediate failure that `brew bundle` reports, instead of a silent hang.
+# msodbcsql18 cannot be installed unattended unless its EULA is pre-accepted.
+# With HOMEBREW_ACCEPT_EULA unset the formula falls back to `STDIN.gets`, and
+# because Homebrew runs a formula's install in a separate build process, the
+# `</dev/null` on the bundle call below never reaches it. The run then blocks
+# forever with no output rather than failing — it cost a 50-minute hang once on
+# an upgrade, and hung again later on a first-time install.
 #
-# The EULA is deliberately NOT auto-accepted here: accepting a licence is the
-# user's decision, not the script's. An already-exported HOMEBREW_ACCEPT_EULA is
-# honoured, and if the driver is missing the manual step below says what to run.
-# brew bundle exits non-zero if any single entry fails. A flaky cask download or a
-# cask that turns out to need admin should not abort the whole bootstrap, so the
-# failure is reported and the run continues.
-# Redirecting stdin is not enough on its own. `brew` runs a formula's install in
-# a separate build process, so the </dev/null here never reaches msodbcsql18's
-# `STDIN.gets` — on an *upgrade* of an already-installed driver it loops forever
-# printing "Please enter YES or NO" with no way to answer. That hung a bootstrap
-# run for 50 minutes before this guard existed.
+# Accepting a licence is the user's decision, not the script's, so acceptance is
+# recorded explicitly and read back here. Two things count as accepted:
+#   - the driver is already installed, so it was accepted at install time;
+#   - the user recorded it in the accepted-eulas file (see the manual step).
+# This is machine-local state, deliberately not tracked in the repo: a licence
+# acceptance belongs to the person on the machine, not to a git history.
 #
-# If the driver is already installed, its EULA was accepted at install time, so
-# re-asserting that during an unattended upgrade is a restatement of a decision
-# the user already made — not a new one. Only ever set for an existing install:
-# a first-time install still falls through to the manual step below.
-if brew list --versions msodbcsql18 >/dev/null 2>&1; then
+# When it is NOT accepted the Brewfile omits the formula entirely (it reads
+# HOMEBREW_DOTFILES_MSODBCSQL), so an unattended run cannot hang on it at all.
+EULA_FILE="${DOTFILES_EULA_FILE:-$HOME/.config/dotfiles/accepted-eulas}"
+
+msodbcsql_eula_accepted() {
+  brew list --versions msodbcsql18 >/dev/null 2>&1 && return 0
+  [[ -f "$EULA_FILE" ]] && grep -qx "msodbcsql18" "$EULA_FILE"
+}
+
+if msodbcsql_eula_accepted; then
   export HOMEBREW_ACCEPT_EULA="${HOMEBREW_ACCEPT_EULA:-Y}"
+  export HOMEBREW_DOTFILES_MSODBCSQL=1
+else
+  export HOMEBREW_DOTFILES_MSODBCSQL=0
+  manual_step "Microsoft's ODBC driver (msodbcsql18) is skipped until you accept its EULA (https://aka.ms/odbc18eula). To accept: mkdir -p ~/.config/dotfiles && echo msodbcsql18 >> ~/.config/dotfiles/accepted-eulas, then re-run bootstrap."
 fi
 
+# brew bundle exits non-zero if any single entry fails. A flaky cask download or
+# a cask that turns out to need admin should not abort the whole bootstrap, so
+# the failure is reported and the run continues. stdin is still closed so any
+# other formula that tries to prompt fails fast instead of hanging.
 if ! brew bundle --file="$REPO_ROOT/Brewfile" </dev/null; then
   warn "Some Brewfile entries failed (e.g. a flaky download, or a cask that needs admin)."
   warn "Continuing setup — re-run 'brew bundle' later to retry the failures."
-fi
-
-# Surface the one entry that cannot complete unattended without an explicit
-# licence acceptance from the user.
-if ! brew list --versions msodbcsql18 >/dev/null 2>&1; then
-  manual_step "Microsoft's ODBC driver needs you to accept its EULA (https://aka.ms/odbc18eula). If you accept, run: HOMEBREW_ACCEPT_EULA=Y brew install microsoft/mssql-release/msodbcsql18"
 fi
