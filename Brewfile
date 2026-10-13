@@ -48,7 +48,11 @@ brew "act"
 brew "awscli"
 brew "dockutil"
 brew "duckdb"
-brew "harlequin"    # terminal DB client (DuckDB/Postgres)
+# harlequin is deliberately NOT a brew formula: it has llvm as a *runtime*
+# dependency, and llvm's bottle cannot be poured into a user prefix, so
+# `brew install harlequin` compiles LLVM from source — hours of CPU for a tool
+# pip ships as a ready-made wheel. It is installed via pipx in
+# scripts/install_python_tools.sh instead. Do not re-add it here.
 brew "gh"
 brew "git"
 brew "git-filter-repo"
@@ -144,7 +148,13 @@ cask "claude"
 
 # Database Drivers
 brew "unixodbc"                                             # ODBC 3 connectivity for UNIX
-brew "microsoft/mssql-release/msodbcsql18", trusted: true   # MS SQL Server ODBC driver
+# Omitted unless its EULA has been accepted. The formula prompts on stdin from a
+# build subprocess that an unattended run cannot answer, so including it while
+# unaccepted hangs the bootstrap instead of failing. install_brew.sh sets this
+# from the user's recorded acceptance.
+if ENV["HOMEBREW_DOTFILES_MSODBCSQL"] == "1"
+  brew "microsoft/mssql-release/msodbcsql18", trusted: true
+end   # MS SQL Server ODBC driver
 
 # Document Processing
 brew "pandoc"
