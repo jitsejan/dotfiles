@@ -127,7 +127,17 @@ if brew list --versions msodbcsql18 >/dev/null 2>&1; then
   export HOMEBREW_ACCEPT_EULA="${HOMEBREW_ACCEPT_EULA:-Y}"
 fi
 
-if ! brew bundle --file="$REPO_ROOT/Brewfile" </dev/null; then
+# Verbose by default: without it brew bundle prints a list of "Installing x"
+# lines and then nothing until it finishes, which is how a multi-hour LLVM
+# source build went unnoticed (#114). DOTFILES_QUIET=1 restores the terse output
+# for re-runs that have nothing new to install.
+BUNDLE_FLAGS=(--file="$REPO_ROOT/Brewfile")
+if [[ "${DOTFILES_QUIET:-0}" != "1" ]]; then
+  BUNDLE_FLAGS+=(--verbose)
+  echo "  (verbose: showing brew's output as it runs; set DOTFILES_QUIET=1 to hide it)"
+fi
+
+if ! brew bundle "${BUNDLE_FLAGS[@]}" </dev/null; then
   warn "Some Brewfile entries failed (e.g. a flaky download, or a cask that needs admin)."
   warn "Continuing setup — re-run 'brew bundle' later to retry the failures."
 fi

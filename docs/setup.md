@@ -58,6 +58,8 @@ dotfiles/
    `DOTFILES_NO_ADMIN`. Everything downstream branches off that one flag.
 1. **OS detection** — macOS runs `install_brew.sh`; Linux falls back to a
    (not-yet-implemented) `install_apt.sh`.
+   `brew bundle` runs with `--verbose`, so downloads and any from-source compile
+   show as they happen; set `DOTFILES_QUIET=1` for the terse output.
 2. **Symlink configs** (see the list below) — done early so Fish starts with its
    config already in place.
 3. **Fish as the interactive shell** — `setup_shell.sh`. With admin it adds Fish to
