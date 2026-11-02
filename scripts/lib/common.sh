@@ -6,6 +6,17 @@
 # and one where they are not. Rather than forking the scripts, every script asks
 # these helpers where things live and whether it may escalate.
 
+# Re-exec the calling script ($0) under bash when started as `sh scripts/...`. macOS's /bin/sh is bash in
+# POSIX mode, which rejects bash-only syntax such as `< <(...)` before any of it
+# runs. Plain POSIX syntax only up to here; the sentinel stops a re-exec loop.
+if [ -z "${BASH_VERSION:-}" ] || case ":${SHELLOPTS:-}:" in *:posix:*) true ;; *) false ;; esac; then
+  if [ -z "${DOTFILES_REEXEC:-}" ]; then
+    DOTFILES_REEXEC=1 exec bash "$0" "$@"
+  fi
+  echo "error: run this with bash, e.g. ./scripts/bootstrap.sh" >&2
+  exit 1  # sourced, but exit is right: the caller cannot continue
+fi
+
 # Guard against double-sourcing when one script sources another.
 [[ -n "${DOTFILES_COMMON_SOURCED:-}" ]] && return 0
 DOTFILES_COMMON_SOURCED=1
