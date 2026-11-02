@@ -89,9 +89,10 @@ add_first_app() {
 # Clear current Dock items
 dockutil --remove all --no-restart >/dev/null
 
-# 🗂️ File Management (Far Left)
+# 🗂️ Everyday Apple apps, next to Finder (which macOS always pins first)
 group
-add_app "Beyond Compare.app"
+add_app "Messages.app"
+add_app "Music.app"
 
 # 🧠 Notes & Knowledge
 group
@@ -124,10 +125,8 @@ add_app "Microsoft Outlook.app"
 add_app "Self Service+.app"
 add_first_app "Cisco/Cisco Secure Client.app" "Cisco/Cisco AnyConnect Secure Mobility Client.app"
 
-# 🧘 Lifestyle & System
+# ⚙️ System
 group
-add_app "Music.app"
-add_app "Messages.app"
 add_app "Passwords.app"
 add_app "System Settings.app"
 
