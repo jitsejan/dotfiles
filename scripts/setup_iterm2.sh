@@ -48,13 +48,7 @@ fi
 
 mkdir -p "$PROFILE_DIR"
 
-if [[ -L "$PROFILE_DEST" && "$(readlink "$PROFILE_DEST")" == "$PROFILE_SRC" ]]; then
-  ok "iTerm2 Monokai profile already linked"
-else
-  [[ -e "$PROFILE_DEST" || -L "$PROFILE_DEST" ]] && rm -f "$PROFILE_DEST"
-  ln -s "$PROFILE_SRC" "$PROFILE_DEST"
-  echo "  → linked $PROFILE_DEST"
-fi
+link_config "$PROFILE_SRC" "$PROFILE_DEST"
 
 # A DynamicProfile cannot make itself the default profile — that pointer lives in
 # the main plist, which iTerm2 would overwrite on quit. Setting it by hand is a

@@ -135,6 +135,42 @@ if [[ -f "$CORPORATE_CA_BUNDLE" ]]; then
   export NODE_EXTRA_CA_CERTS="$CORPORATE_CA_BUNDLE"
 fi
 
+# --- Tracked configs ----------------------------------------------------
+
+# Symlink a tracked config into place, safely and idempotently:
+# - already linked to the repo        → nothing to do
+# - a symlink pointing anywhere else  → replaced (only the link goes, no data)
+# - a real file or directory          → moved aside to <dest>.backup-<timestamp>,
+#   never deleted, so a hand-made config on a fresh Mac can't be lost (#81)
+# - a missing source                  → warned and skipped, so no dangling link
+# The link is then read back and checked, rather than assumed to have worked.
+link_config() {
+  local src="$1" dest="$2" backup
+  if [[ ! -e "$src" ]]; then
+    warn "tracked config missing: $src — not linking $dest"
+    return 0
+  fi
+  if [[ -L "$dest" && "$(readlink "$dest")" == "$src" ]]; then
+    ok "$dest already linked"
+    return 0
+  fi
+  if [[ -L "$dest" ]]; then
+    echo "  ↻ replacing symlink $dest (was → $(readlink "$dest"))"
+    rm -f "$dest"
+  elif [[ -e "$dest" ]]; then
+    backup="$dest.backup-$(date +%Y%m%d-%H%M%S)"
+    mv "$dest" "$backup"
+    warn "existing $dest moved to $backup"
+    manual_step "Review $backup — it was in the way of the tracked config and has been kept, not deleted."
+  fi
+  ln -s "$src" "$dest"
+  if [[ -L "$dest" && "$(readlink "$dest")" == "$src" && -e "$dest" ]]; then
+    echo "  → linked $dest"
+  else
+    warn "could not link $dest → $src"
+  fi
+}
+
 # --- Output ----------------------------------------------------------------
 
 step() { echo "▶ $*"; }

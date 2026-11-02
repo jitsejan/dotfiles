@@ -28,7 +28,8 @@ structural changes.
   `~/Applications` is searched too. See [No-admin mode](docs/setup.md#no-admin-mode).
 - **Every script sources `scripts/lib/common.sh`.** It provides admin detection
   (`no_admin`), path resolution (`brew_prefix`, `app_install_dir`, `find_app`,
-  `writable_bin_dir`), output helpers (`step`/`ok`/`skip`/`warn`), and
+  `writable_bin_dir`), `link_config` for symlinking a tracked config safely
+  (backs up anything in the way, never deletes it), output helpers (`step`/`ok`/`skip`/`warn`), and
   `manual_step` for recording things the user must do by hand. Don't reimplement
   these per script.
 - **A missing optional tool is a warning, not a failure.** Setup scripts should

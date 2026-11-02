@@ -36,19 +36,6 @@ echo
 
 # Safely (re)create a symlink at $2 pointing to $1, replacing any existing
 # file/dir/symlink so we never nest a link inside an existing directory.
-link_config() {
-  local src="$1" dest="$2"
-  if [[ -L "$dest" && "$(readlink "$dest")" == "$src" ]]; then
-    ok "$dest already linked"
-    return
-  fi
-  if [[ -e "$dest" || -L "$dest" ]]; then
-    echo "  ↻ replacing existing $dest"
-    rm -rf "$dest"
-  fi
-  ln -s "$src" "$dest"
-  echo "  → linked $dest"
-}
 
 # Warn early if the Swift/Command Line Tools toolchain is broken — otherwise
 # Homebrew casks that move .app bundles fail cryptically mid-run.

@@ -80,6 +80,12 @@ The symlinks created in step 2:
      `.config/vscode/settings.json`
    - `~/Library/Application Support/Code/User/keybindings.json` → repo
      `.config/vscode/keybindings.json`
+
+   All of them go through `link_config` in `scripts/lib/common.sh`. A real file or
+   directory already in the way (a hand-made `~/.config/fish` on a fresh Mac, say)
+   is moved to `<path>.backup-<timestamp>` and listed as a manual step — never
+   deleted. A symlink pointing somewhere else is replaced, a missing source is
+   skipped with a warning, and each new link is read back to confirm it took.
    - (skipped if VS Code hasn't been launched once yet — its `User/` directory
      won't exist; re-run `bootstrap.sh` after first launch)
 
