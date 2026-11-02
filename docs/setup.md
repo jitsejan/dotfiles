@@ -105,7 +105,7 @@ that the current machine doesn't take.
 |-------|----------|
 | **Taps** | `microsoft/mssql-release`, `hashicorp/tap` |
 | **Shell & Terminal** | fish, starship, iterm2 |
-| **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, harlequin, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
+| **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glab, glow, jq, oha, qpdf, ripgrep, shellcheck, tree, zoxide |
 | **Dev Apps** | fork, visual-studio-code |
 | **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice |
