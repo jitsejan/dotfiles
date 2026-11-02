@@ -120,7 +120,6 @@ add_app "Passwords.app"
 add_app "System Settings.app"
 
 # 📂 Folders
-dockutil --add '' --type flex-spacer --section others --no-restart >/dev/null
 dockutil --add "$HOME/Downloads" --view grid --display folder --sort dateadded --section others --no-restart >/dev/null
 
 # Stop macOS from auto-adding recently used apps — keeps this curated layout
