@@ -148,7 +148,7 @@ admin rights — that's how the mode gets tested.
 
 | Concern | With admin | Without admin |
 |---|---|---|
-| Homebrew prefix | `/opt/homebrew` via the official installer | user-owned prefix (`~/homebrew` on a fresh install), untarred from the brew tarball |
+| Homebrew prefix | `/opt/homebrew` via the official installer | user-owned prefix (`~/homebrew` on a fresh install), a git checkout of Homebrew's `main` branch |
 | Casks | `/Applications` | `~/Applications` via `HOMEBREW_CASK_OPTS=--appdir=…` |
 | Fish as shell | `/etc/shells` + `chsh` | zsh `exec`s Fish for interactive shells |
 | Containers | Docker Desktop | colima + the `docker` CLI |

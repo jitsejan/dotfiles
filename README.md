@@ -21,8 +21,9 @@ Homebrew, then Claude Code, then hand the rest to Claude:
 #    With admin rights:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 #    Without admin rights (the official installer needs sudo) — user-owned prefix:
-mkdir -p ~/homebrew && curl -fsSL https://github.com/Homebrew/brew/tarball/master \
-  | tar xz --strip-components 1 -C ~/homebrew
+#    A git checkout of `main`, not a tarball: the old `tarball/master` snapshot
+#    refuses every command and can't be updated.
+git clone --depth=1 https://github.com/Homebrew/brew ~/homebrew
 export PATH="$HOME/homebrew/bin:$PATH"
 
 # 2. Claude Code
