@@ -101,31 +101,12 @@ if no_admin; then
   echo "  (no-admin mode: entries needing sudo are excluded from the Brewfile)"
 fi
 
-# Some formulae prompt on stdin during install — microsoft/mssql-release's
-# msodbcsql18 falls back to `STDIN.gets` for EULA acceptance when
-# HOMEBREW_ACCEPT_EULA is unset. In an unattended bootstrap that blocks forever
-# with no output. Redirecting stdin from /dev/null turns any such prompt into an
-# immediate failure that `brew bundle` reports, instead of a silent hang.
-#
-# The EULA is deliberately NOT auto-accepted here: accepting a licence is the
-# user's decision, not the script's. An already-exported HOMEBREW_ACCEPT_EULA is
-# honoured, and if the driver is missing the manual step below says what to run.
-# brew bundle exits non-zero if any single entry fails. A flaky cask download or a
-# cask that turns out to need admin should not abort the whole bootstrap, so the
-# failure is reported and the run continues.
-# Redirecting stdin is not enough on its own. `brew` runs a formula's install in
-# a separate build process, so the </dev/null here never reaches msodbcsql18's
-# `STDIN.gets` — on an *upgrade* of an already-installed driver it loops forever
-# printing "Please enter YES or NO" with no way to answer. That hung a bootstrap
-# run for 50 minutes before this guard existed.
-#
-# If the driver is already installed, its EULA was accepted at install time, so
-# re-asserting that during an unattended upgrade is a restatement of a decision
-# the user already made — not a new one. Only ever set for an existing install:
-# a first-time install still falls through to the manual step below.
-if brew list --versions msodbcsql18 >/dev/null 2>&1; then
-  export HOMEBREW_ACCEPT_EULA="${HOMEBREW_ACCEPT_EULA:-Y}"
-fi
+# stdin is redirected from /dev/null so that a formula which prompts during
+# install (a licence question, say) fails immediately and is reported by
+# `brew bundle`, instead of blocking an unattended bootstrap forever. brew bundle
+# exits non-zero if any single entry fails; a flaky cask download or a cask that
+# turns out to need admin should not abort the whole bootstrap, so the failure is
+# reported and the run continues.
 
 # Verbose by default: without it brew bundle prints a list of "Installing x"
 # lines and then nothing until it finishes, which is how a multi-hour LLVM
@@ -140,10 +121,4 @@ fi
 if ! brew bundle "${BUNDLE_FLAGS[@]}" </dev/null; then
   warn "Some Brewfile entries failed (e.g. a flaky download, or a cask that needs admin)."
   warn "Continuing setup — re-run 'brew bundle' later to retry the failures."
-fi
-
-# Surface the one entry that cannot complete unattended without an explicit
-# licence acceptance from the user.
-if ! brew list --versions msodbcsql18 >/dev/null 2>&1; then
-  manual_step "Microsoft's ODBC driver needs you to accept its EULA (https://aka.ms/odbc18eula). If you accept, run: HOMEBREW_ACCEPT_EULA=Y brew install microsoft/mssql-release/msodbcsql18"
 fi

@@ -105,7 +105,7 @@ that the current machine doesn't take.
 
 | Group | Packages |
 |-------|----------|
-| **Taps** | `microsoft/mssql-release`, `hashicorp/tap` |
+| **Taps** | `hashicorp/tap` |
 | **Shell & Terminal** | fish, starship, iterm2 |
 | **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glab, glow, jq, oha, qpdf, ripgrep, shellcheck, tree, zoxide |
@@ -113,7 +113,6 @@ that the current machine doesn't take.
 | **Productivity** | rectangle, obsidian, beyond-compare, granola, libreoffice |
 | **Browsers** | google-chrome |
 | **AI Tools** | chatgpt, claude |
-| **DB Drivers** | unixodbc, msodbcsql18 (MS SQL ODBC) |
 | **Docs** | pandoc, librsvg, poppler |
 | **Fonts** | font-jetbrains-mono-nerd-font |
 | **VS Code** | 18 extensions (Python, Jupyter, Terraform, YAML, PlantUML, Mermaid, Atlassian, Monokai Pro, Makefile, rainbow-csv…) |
@@ -173,7 +172,7 @@ formulae pour cleanly. The six that don't:
 | Formula | Cost in a user prefix |
 |---|---|
 | `openssl@3` | Long, and a dependency of much of the tree — the first run sits on it |
-| `git`, `unixodbc`, `libpq`, `git-filter-repo` | Ordinary bounded builds, minutes each |
+| `git`, `libpq`, `git-filter-repo` | Ordinary bounded builds, minutes each |
 | `node`, `opencode` | **Unacceptable** — both need LLVM, which also has no relocatable bottle |
 
 `node` and `opencode` are therefore not installed from Homebrew on a no-admin

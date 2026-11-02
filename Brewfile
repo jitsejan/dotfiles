@@ -35,7 +35,6 @@ def cask_unless_present(token, *app_names)
 end
 
 # Taps
-tap "microsoft/mssql-release", "https://github.com/Microsoft/homebrew-mssql-release"
 tap "hashicorp/tap"   # terraform — see the Core Development Tools note below
 
 # Shell & Terminal
@@ -143,10 +142,6 @@ cask_unless_present "google-chrome", "Google Chrome.app"
 # AI Tools
 cask "chatgpt"
 cask "claude"
-
-# Database Drivers
-brew "unixodbc"                                             # ODBC 3 connectivity for UNIX
-brew "microsoft/mssql-release/msodbcsql18", trusted: true   # MS SQL Server ODBC driver
 
 # Document Processing
 brew "pandoc"
