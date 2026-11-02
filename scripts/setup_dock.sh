@@ -25,12 +25,41 @@ if ! command -v dockutil &>/dev/null; then
   exit 0
 fi
 
+spacer()       { dockutil --add '' --type spacer --section apps --no-restart >/dev/null; }
+small_spacer() { dockutil --add '' --type small-spacer --section apps --no-restart >/dev/null; }
+
+# Groups are separated by spacers, but a spacer is only placed once the next
+# group actually adds an app. A group whose apps are all missing (the Work group
+# on the personal Mac, or an app not installed yet) then leaves no gap, and the
+# Dock never starts or ends with a spacer. That is what makes the layout
+# conditional per machine without a profile switch: the work apps are only
+# installed on the work Mac, so only there does the Work group appear.
+ANY_ADDED=0
+PENDING_SPACER=""
+
+# Start a new group: queue a full spacer before its first app.
+group() { [[ "$ANY_ADDED" == 1 ]] && PENDING_SPACER=spacer || PENDING_SPACER=""; }
+
+# Start a sub-group inside a group: queue a small spacer instead. Never
+# downgrades a full spacer that is still waiting from an empty group boundary.
+sub_group() { [[ "$ANY_ADDED" == 1 && -z "$PENDING_SPACER" ]] && PENDING_SPACER=small_spacer || true; }
+
+add_path() {
+  if [[ -n "$PENDING_SPACER" ]]; then
+    "$PENDING_SPACER"
+    PENDING_SPACER=""
+  fi
+  dockutil --add "$1" --no-restart >/dev/null
+  ANY_ADDED=1
+}
+
 # Add an app by bundle name, wherever it is installed. Skips silently when the
 # app is absent so a cask removed from the Brewfile doesn't break the script.
+# A name may include a subfolder of an app directory, e.g. "Utilities/Terminal.app".
 add_app() {
   local name="$1" path
   if path="$(find_app "$name")"; then
-    dockutil --add "$path" --no-restart >/dev/null
+    add_path "$path"
     echo "  + $name"
   else
     skip "$name (not installed)"
@@ -44,7 +73,7 @@ add_first_app() {
   local name path
   for name in "$@"; do
     if path="$(find_app "$name")"; then
-      dockutil --add "$path" --no-restart >/dev/null
+      add_path "$path"
       echo "  + $name"
       return 0
     fi
@@ -52,37 +81,43 @@ add_first_app() {
   skip "$* (none installed)"
 }
 
-spacer()       { dockutil --add '' --type spacer --section apps --no-restart >/dev/null; }
-small_spacer() { dockutil --add '' --type small-spacer --section apps --no-restart >/dev/null; }
-
 # Clear current Dock items
 dockutil --remove all --no-restart >/dev/null
 
 # 🗂️ File Management (Far Left)
+group
 add_app "Beyond Compare.app"
-spacer
 
 # 🧠 Notes & Knowledge
+group
 add_app "Obsidian.app"
 add_app "Notes.app"
-spacer
+add_app "Granola.app"
 
 # 👨‍💻 Dev & Ops
+group
 add_first_app "iTerm 2.app" "iTerm.app"
 add_app "Fork.app"
 add_app "Visual Studio Code.app"
 add_app "Bruno.app"
-spacer
 
 # 🌐 Web & AI
+group
 add_app "Google Chrome.app"
-small_spacer
+sub_group
 add_app "ChatGPT.app"
 add_app "Claude.app"
 add_app "Safari.app"
-spacer
+
+# 💼 Work — only the work Mac has these installed, so on the personal Mac the
+# whole group (and its spacer) is skipped.
+group
+add_app "zoom.us.app"
+add_app "Slack.app"
+add_app "Microsoft Outlook.app"
 
 # 🧘 Lifestyle & System
+group
 add_app "Music.app"
 add_app "Messages.app"
 add_app "System Settings.app"

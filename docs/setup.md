@@ -457,7 +457,7 @@ Each is idempotent — verifies the app/binary exists, then configures it:
 | `install_node.sh` | Ensures node + npm exist before the Brewfile's npm entries — via fnm without admin. **Sourced, not executed.** |
 | `setup_shell.sh` | Makes Fish the interactive shell — `chsh` with admin, a zsh handoff without. |
 | `setup_docker.sh` | Prefers Docker Desktop; falls back to starting a colima VM when Desktop isn't installed. |
-| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → lifestyle/system) with spacers; finds apps in `~/Applications` as well as `/Applications`; skips any app that isn't installed; disables `show-recents`. **Clears the Dock first**, so set `DOTFILES_SKIP_DOCK=1` to leave an existing Dock alone. |
+| `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → work → lifestyle/system); a spacer only goes between groups that actually added an app, so the Work group (Zoom, Slack, Outlook) appears only on the Mac that has those apps installed; finds apps in `~/Applications` as well as `/Applications`; skips any app that isn't installed; disables `show-recents`. **Clears the Dock first**, so set `DOTFILES_SKIP_DOCK=1` to leave an existing Dock alone. |
 | `setup_terraform.sh` | Verifies Terraform + Terragrunt, ensures `~/.terraform.d`. |
 | `setup_beyondcompare.sh` | Symlinks the `bcomp` CLI into `/usr/local/bin`, or `~/.local/bin` without admin. |
 | `setup_fork.sh` | Verifies Fork + checks global git user config. |
