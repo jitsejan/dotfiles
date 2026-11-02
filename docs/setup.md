@@ -263,7 +263,13 @@ command" setting. Two escape hatches: `DOTFILES_NO_FISH=1` skips the handoff for
 a session, and the `INSIDE_FISH` guard prevents a zsh→fish→zsh loop.
 
 Because the source line sits at the *end* of `~/.zshrc`, exports above it (the
-Homebrew `PATH`, the corporate CA bundle) are inherited by the Fish process.
+corporate CA bundle, for instance) are inherited by the Fish process.
+
+The launcher does not rely on Fish being on zsh's `PATH`. A no-admin Homebrew is
+a git clone in `~/homebrew`, and nothing adds its `bin/` to zsh's `PATH` the way
+the official installer's `~/.zprofile` line does. So the launcher looks for
+`fish` in the same prefixes as `brew_prefix()` and execs it by absolute path;
+`config.fish` then puts the Homebrew prefix on `PATH` for the session.
 
 ### Containers via colima
 
