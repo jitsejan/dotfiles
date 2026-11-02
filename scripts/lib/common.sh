@@ -86,8 +86,9 @@ writable_bin_dir() {
 # location first, then legacy user prefixes, then the admin defaults. Keep this
 # list identical to the one in .config/fish/config.fish so bash and fish agree.
 brew_prefix() {
-  if command -v brew >/dev/null 2>&1; then
-    brew --prefix
+  # A brew that errors (e.g. a stale install) falls through to the filesystem
+  # search instead of reporting an empty prefix as success.
+  if command -v brew >/dev/null 2>&1 && brew --prefix 2>/dev/null; then
     return 0
   fi
   local candidate
