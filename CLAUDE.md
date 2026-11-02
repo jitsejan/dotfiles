@@ -72,3 +72,5 @@ structural changes.
   `git clone ... && ./scripts/bootstrap.sh`.
 - **Test the no-admin path on an admin Mac** → `DOTFILES_NO_ADMIN=1 ./scripts/bootstrap.sh`.
 - **Re-run bootstrap without wiping the Dock** → `DOTFILES_SKIP_DOCK=1 ./scripts/bootstrap.sh`.
+- **Hide brew's install output** → `DOTFILES_QUIET=1 ./scripts/bootstrap.sh` (verbose is the
+  default, so a from-source compile is visible instead of a silent hang).
