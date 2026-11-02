@@ -28,7 +28,16 @@ BREW_REPO_URL="https://github.com/Homebrew/brew"
 # a tarball has no .git, so the `brew update` it suggests cannot migrate it either.
 install_brew_no_admin() {
   step "Installing Homebrew into $NO_ADMIN_BREW_PREFIX (no admin, user-owned prefix)..."
-  git clone --depth=1 "$BREW_REPO_URL" "$NO_ADMIN_BREW_PREFIX"
+  # A leftover directory (an interrupted clone, or a tarball install missing
+  # bin/brew) makes `git clone` refuse, so adopt it in place instead.
+  if [[ -n "$(ls -A "$NO_ADMIN_BREW_PREFIX" 2>/dev/null)" ]]; then
+    repair_tarball_brew "$NO_ADMIN_BREW_PREFIX" || {
+      warn "Could not set up Homebrew in $NO_ADMIN_BREW_PREFIX — move it aside and re-run bootstrap."
+      return 1
+    }
+  else
+    git clone --depth=1 "$BREW_REPO_URL" "$NO_ADMIN_BREW_PREFIX"
+  fi
   export PATH="$NO_ADMIN_BREW_PREFIX/bin:$NO_ADMIN_BREW_PREFIX/sbin:$PATH"
   warn "Formulae without a relocatable bottle will be compiled from source in a"
   warn "custom prefix. That is slower but needs no admin rights."
@@ -39,7 +48,7 @@ install_brew_no_admin() {
 # rest of the prefix are gitignored by Homebrew, so installed packages survive.
 repair_tarball_brew() {
   local prefix="$1"
-  step "Converting the tarball Homebrew in $prefix to a git checkout of main..."
+  step "Converting the existing Homebrew in $prefix to a git checkout of main..."
   # Chained with && because this runs in an `||` context, where set -e is off.
   git -C "$prefix" init -q &&
     { git -C "$prefix" remote remove origin 2>/dev/null || true; } &&
@@ -59,10 +68,12 @@ for candidate in "$NO_ADMIN_BREW_PREFIX" "$HOME/.brew" "$HOME/Documents/.brew"; 
   fi
 done
 
-if command -v brew >/dev/null 2>&1; then
-  ok "Homebrew already installed at $(brew --prefix)"
+# brew_prefix, not `command -v brew`: a user-prefix brew is usually not on PATH
+# yet when bootstrap starts, and must be found on disk rather than reinstalled.
+if existing_prefix="$(brew_prefix)"; then
+  ok "Homebrew already installed at $existing_prefix"
 elif no_admin; then
-  install_brew_no_admin
+  install_brew_no_admin || true  # activate_brew below reports a missing brew
 else
   install_brew_as_admin
 fi
