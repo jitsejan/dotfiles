@@ -53,8 +53,8 @@ reported as untracked:
 - Entries excluded on this machine by the `no_admin` branch.
 
 Note: some formulae are tracked under a tap-qualified name (e.g.
-`microsoft/mssql-release/msodbcsql18`) but `brew list` reports the bare name
-(`msodbcsql18`). Don't flag these as untracked — check both forms before
+`hashicorp/tap/terraform`) but `brew list` reports the bare name
+(`terraform`). Don't flag these as untracked — check both forms before
 concluding something is missing.
 
 ## 3. Diff
