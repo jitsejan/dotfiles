@@ -114,7 +114,6 @@ fast and mostly idempotent checks):
 ```
 scripts/setup_obsidian.sh
 scripts/setup_docker.sh
-scripts/setup_beyondcompare.sh
 scripts/setup_fork.sh
 scripts/setup_terraform.sh
 scripts/setup_git_filter_repo.sh
@@ -127,9 +126,6 @@ Known manual follow-ups to flag to the user afterward:
 - **Docker without admin** — `setup_docker.sh` starts a colima VM instead. The
   *first* `colima start` downloads a VM image and takes several minutes; don't
   mistake that for a hang.
-- **Beyond Compare CLI symlink** — with admin this needs `sudo` for
-  `/usr/local/bin/bcomp` (expect a password prompt); without, it links into
-  `~/.local/bin` and needs nothing.
 - **Dock rebuild** — `setup_dock.sh` *clears* the Dock before rebuilding it. On a
   managed Mac that discards IT-placed icons, and on a partly provisioned machine
   it rebuilds an almost-empty Dock. Ask the user before running it the first
