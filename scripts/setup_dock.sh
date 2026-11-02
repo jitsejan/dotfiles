@@ -25,32 +25,37 @@ if ! command -v dockutil &>/dev/null; then
   exit 0
 fi
 
-spacer()       { dockutil --add '' --type spacer --section apps --no-restart >/dev/null; }
-small_spacer() { dockutil --add '' --type small-spacer --section apps --no-restart >/dev/null; }
+spacer() { dockutil --add '' --type spacer --section apps --no-restart >/dev/null; }
 
-# Groups are separated by spacers, but a spacer is only placed once the next
+# Groups are separated by spacers, but spacers are only placed once the next
 # group actually adds an app. A group whose apps are all missing (the Work group
 # on the personal Mac, or an app not installed yet) then leaves no gap, and the
 # Dock never starts or ends with a spacer. That is what makes the layout
 # conditional per machine without a profile switch: the work apps are only
 # installed on the work Mac, so only there does the Work group appear.
-ANY_ADDED=0
-PENDING_SPACER=""
+#
+# `group wide` sets a group apart with a double spacer on both sides — again
+# only if it ends up with an app in it.
+ANY_ADDED=0        # anything in the Dock yet?
+PENDING=0          # spacers to place before the next app
+CUR_WIDE=0         # is the current group a wide one?
+CUR_ADDED=0        # has the current group added an app?
 
-# Start a new group: queue a full spacer before its first app.
-group() { [[ "$ANY_ADDED" == 1 ]] && PENDING_SPACER=spacer || PENDING_SPACER=""; }
-
-# Start a sub-group inside a group: queue a small spacer instead. Never
-# downgrades a full spacer that is still waiting from an empty group boundary.
-sub_group() { [[ "$ANY_ADDED" == 1 && -z "$PENDING_SPACER" ]] && PENDING_SPACER=small_spacer || true; }
+group() {
+  local want=1
+  [[ "${1:-}" == wide ]] && want=2
+  # The previous group was wide and not empty: it needs its double gap after it.
+  [[ "$CUR_WIDE" == 1 && "$CUR_ADDED" == 1 ]] && want=2
+  if [[ "$ANY_ADDED" == 1 ]]; then PENDING=$want; else PENDING=0; fi
+  [[ "${1:-}" == wide ]] && CUR_WIDE=1 || CUR_WIDE=0
+  CUR_ADDED=0
+}
 
 add_path() {
-  if [[ -n "$PENDING_SPACER" ]]; then
-    "$PENDING_SPACER"
-    PENDING_SPACER=""
-  fi
+  while (( PENDING > 0 )); do spacer; PENDING=$((PENDING - 1)); done
   dockutil --add "$1" --no-restart >/dev/null
   ANY_ADDED=1
+  CUR_ADDED=1
 }
 
 # Add an app by bundle name, wherever it is installed. Skips silently when the
@@ -101,17 +106,16 @@ add_app "Fork.app"
 add_app "Visual Studio Code.app"
 add_app "Bruno.app"
 
-# 🌐 Web & AI
+# 🌐 Web & AI — browsers first, then the AI apps
 group
 add_app "Google Chrome.app"
-sub_group
+add_app "Safari.app"
 add_app "ChatGPT.app"
 add_app "Claude.app"
-add_app "Safari.app"
 
 # 💼 Work — only the work Mac has these installed, so on the personal Mac the
-# whole group (and its spacer) is skipped.
-group
+# whole group (and its double spacers) is skipped.
+group wide
 add_app "zoom.us.app"
 add_app "Slack.app"
 add_app "Microsoft Outlook.app"
