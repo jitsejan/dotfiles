@@ -115,11 +115,16 @@ group
 add_app "zoom.us.app"
 add_app "Slack.app"
 add_app "Microsoft Outlook.app"
+# IT-managed: Jamf's app catalogue and the VPN client. Cisco installs into a
+# Cisco/ subfolder; older installs still carry the AnyConnect name.
+add_app "Self Service+.app"
+add_first_app "Cisco/Cisco Secure Client.app" "Cisco/Cisco AnyConnect Secure Mobility Client.app"
 
 # 🧘 Lifestyle & System
 group
 add_app "Music.app"
 add_app "Messages.app"
+add_app "Passwords.app"
 add_app "System Settings.app"
 
 # 📂 Folders
