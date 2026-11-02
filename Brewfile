@@ -48,7 +48,10 @@ brew "act"
 brew "awscli"
 brew "dockutil"
 brew "duckdb"
-brew "harlequin"    # terminal DB client (DuckDB/Postgres)
+# harlequin (terminal client for DuckDB/Postgres) is deliberately NOT here: it
+# comes from pipx in scripts/install_python_tools.sh. The formula depends on
+# apache-arrow, which needs llvm at runtime, and llvm has no relocatable bottle —
+# in a user prefix that is a multi-hour LLVM source build. See #114.
 brew "gh"
 brew "git"
 brew "git-filter-repo"
