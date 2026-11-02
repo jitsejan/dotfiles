@@ -108,7 +108,7 @@ that the current machine doesn't take.
 | **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, harlequin, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glab, glow, jq, oha, qpdf, ripgrep, shellcheck, tree, zoxide |
 | **Dev Apps** | fork, visual-studio-code |
-| **Productivity** | rectangle, obsidian, beyond-compare, shadow, libreoffice |
+| **Productivity** | rectangle, obsidian, beyond-compare, shadow, granola, libreoffice |
 | **Browsers** | google-chrome |
 | **AI Tools** | chatgpt, claude |
 | **DB Drivers** | unixodbc, msodbcsql18 (MS SQL ODBC) |
