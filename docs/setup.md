@@ -462,6 +462,7 @@ Each is idempotent — verifies the app/binary exists, then configures it:
 | `install_node.sh` | Ensures node + npm exist before the Brewfile's npm entries — via fnm without admin. **Sourced, not executed.** |
 | `setup_shell.sh` | Makes Fish the interactive shell — `chsh` with admin, a zsh handoff without. |
 | `setup_docker.sh` | Prefers Docker Desktop; falls back to starting a colima VM when Desktop isn't installed. |
+| `verify.sh` | Read-only check of this Mac against the repo: Brewfile entries not installed (`brew bundle check --no-upgrade`), tracked configs not symlinked or with something in the way, the iTerm2 profile, and the fish setup. Lists outdated packages for information. Exits 1 when anything needs doing. `bootstrap.sh --dry-run` runs it. |
 | `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (Finder + Messages/Music → notes → dev/ops → web/AI → work → system); a spacer only goes between groups that actually added an app, so the Work group (Zoom, Slack, Outlook, Self Service+, Cisco Secure Client) appears only on the Mac that has those apps installed; finds apps in `~/Applications` as well as `/Applications`; skips any app that isn't installed; disables `show-recents`. **Clears the Dock first**, so set `DOTFILES_SKIP_DOCK=1` to leave an existing Dock alone. |
 | `setup_terraform.sh` | Verifies Terraform + Terragrunt, ensures `~/.terraform.d`. |
 | `setup_fork.sh` | Verifies Fork + checks global git user config. |
@@ -490,6 +491,7 @@ Each is idempotent — verifies the app/binary exists, then configures it:
 - **Add a package** — edit `Brewfile`, run `brew bundle`, commit.
 - **Tweak shell/prompt** — edit the symlinked file in the repo (changes are live), commit.
 - **New machine** — clone + `./scripts/bootstrap.sh`.
+- **Check what bootstrap would change** — `./scripts/verify.sh` (or `./scripts/bootstrap.sh --dry-run`); read-only.
 - **Audit drift** — `brew bundle dump --describe` and diff against `Brewfile`.
 - **Issues → branches → PRs** — track changes as GitHub issues, one branch/PR per issue
   (`claude/issue-<n>-<slug>`), squash-merge to `master`.
