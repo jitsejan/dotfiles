@@ -131,7 +131,6 @@ cask "visual-studio-code"
 # Productivity & Utilities
 cask "rectangle"            # window management
 cask "obsidian"             # note taking
-cask "beyond-compare"       # file comparison and management
 cask "granola"              # AI meeting notepad — plain .app, installs to ~/Applications without admin
 cask "libreoffice"          # office suite
 

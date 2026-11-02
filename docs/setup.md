@@ -66,7 +66,7 @@ dotfiles/
    `/etc/shells` and runs `chsh`; without, zsh hands off to Fish instead.
 4. **Python tooling** — `install_python_tools.sh`.
 5. **npm globals** — `install_apps.sh`.
-6. **Per-tool setup** — Obsidian, Docker, Beyond Compare, Fork, Terraform,
+6. **Per-tool setup** — Obsidian, Docker, Fork, Terraform,
    git-filter-repo, Dock.
 7. **Manual-step summary** — anything that could not be automated (an admin-only
    installer, Obsidian's plugin browser) is collected during the run and printed
@@ -110,7 +110,7 @@ that the current machine doesn't take.
 | **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glab, glow, jq, oha, qpdf, ripgrep, shellcheck, tree, zoxide |
 | **Dev Apps** | fork, visual-studio-code |
-| **Productivity** | rectangle, obsidian, beyond-compare, granola, libreoffice |
+| **Productivity** | rectangle, obsidian, granola, libreoffice |
 | **Browsers** | google-chrome |
 | **AI Tools** | chatgpt, claude |
 | **Docs** | pandoc, librsvg, poppler |
@@ -154,7 +154,6 @@ admin rights — that's how the mode gets tested.
 | Containers | Docker Desktop | colima + the `docker` CLI |
 | Node | `brew "node"` | `fnm` + upstream's prebuilt binaries |
 | opencode | `brew "opencode"` | `npm "opencode-ai"` |
-| `bcomp` CLI shim | `/usr/local/bin` | `~/.local/bin` |
 | Dock | `dockutil` | `dockutil` (unchanged — the Dock is per-user state) |
 
 ### Homebrew in a user prefix
@@ -459,7 +458,6 @@ Each is idempotent — verifies the app/binary exists, then configures it:
 | `setup_docker.sh` | Prefers Docker Desktop; falls back to starting a colima VM when Desktop isn't installed. |
 | `setup_dock.sh` | Rebuilds the macOS Dock via `dockutil` — grouped layout (file mgmt → notes → dev/ops → web/AI → lifestyle/system) with spacers; finds apps in `~/Applications` as well as `/Applications`; skips any app that isn't installed; disables `show-recents`. **Clears the Dock first**, so set `DOTFILES_SKIP_DOCK=1` to leave an existing Dock alone. |
 | `setup_terraform.sh` | Verifies Terraform + Terragrunt, ensures `~/.terraform.d`. |
-| `setup_beyondcompare.sh` | Symlinks the `bcomp` CLI into `/usr/local/bin`, or `~/.local/bin` without admin. |
 | `setup_fork.sh` | Verifies Fork + checks global git user config. |
 | `setup_git_filter_repo.sh` | Verifies install, prints safety warnings + usage patterns. |
 | `setup_obsidian.sh` | Provisions the Obsidian vault (see below). |
