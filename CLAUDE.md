@@ -70,6 +70,8 @@ structural changes.
 
 - **Add a package** → edit `Brewfile`, run `brew bundle --file=Brewfile`, commit.
 - **Tweak shell/prompt** → edit the symlinked file in the repo directly (it's live).
+- **Check what bootstrap would change** → `./scripts/verify.sh` (or
+  `./scripts/bootstrap.sh --dry-run`). Read-only; exits 1 if anything differs.
 - **Audit drift** → use the `drift-check` skill, or manually
   `brew bundle dump --file=- --describe` and diff against `Brewfile`.
 - **Provision a new machine** → use the `machine-setup` skill, or manually

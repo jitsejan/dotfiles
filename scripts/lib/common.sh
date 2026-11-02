@@ -171,6 +171,25 @@ link_config() {
   fi
 }
 
+# The configs bootstrap symlinks into place, one "<src><TAB><dest>" per line.
+# bootstrap.sh creates them and verify.sh checks them, so both read this list.
+# VS Code's are included once the app is installed: VS Code only creates User/
+# on first launch but reads it at startup, so bootstrap creates it up front.
+tracked_links() {
+  local repo="$1"
+  printf '%s\t%s\n' \
+    "$repo/.config/starship.toml"          "$HOME/.config/starship.toml" \
+    "$repo/.config/fish"                   "$HOME/.config/fish" \
+    "$repo/.config/zsh"                    "$HOME/.config/zsh" \
+    "$repo/.config/git/personal.gitconfig" "$HOME/.config/git/personal.gitconfig"
+  local vscode="$HOME/Library/Application Support/Code/User"
+  if [[ -d "$vscode" ]] || find_app "Visual Studio Code.app" >/dev/null; then
+    printf '%s\t%s\n' \
+      "$repo/.config/vscode/settings.json"    "$vscode/settings.json" \
+      "$repo/.config/vscode/keybindings.json" "$vscode/keybindings.json"
+  fi
+}
+
 # --- Output ----------------------------------------------------------------
 
 step() { echo "▶ $*"; }

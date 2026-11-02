@@ -20,6 +20,13 @@ source "$SCRIPT_DIR/lib/common.sh"
 # symlinks below always point at tracked files rather than at $PWD.
 cd "$REPO_ROOT"
 
+# --dry-run changes nothing: it reports what a real run would still install or
+# link, which is exactly what verify.sh checks.
+if [[ "${1:-}" == "--dry-run" ]]; then
+  echo "🔍 Dry run — nothing is changed. A real run would fix everything flagged below."
+  exec "$SCRIPT_DIR/verify.sh"
+fi
+
 # Start each run with a clean manual-steps list.
 : > "$MANUAL_STEPS_FILE"
 trap 'rm -f "$MANUAL_STEPS_FILE"' EXIT
@@ -66,26 +73,12 @@ activate_brew || true
 # Symlinks come before the shell switch so fish starts with its config already
 # in place, and so setup_shell.sh can find the tracked zsh handoff snippet.
 step "Symlinking configs..."
-mkdir -p ~/.config
-link_config "$REPO_ROOT/.config/starship.toml" ~/.config/starship.toml
-link_config "$REPO_ROOT/.config/fish" ~/.config/fish
-link_config "$REPO_ROOT/.config/zsh" ~/.config/zsh
-
-mkdir -p ~/.config/git
-link_config "$REPO_ROOT/.config/git/personal.gitconfig" ~/.config/git/personal.gitconfig
-
-# VS Code only creates User/ on first launch, but it reads the directory at
-# startup — so if the app is installed we can create it ourselves and have the
-# settings apply from the very first run, instead of telling the user to launch
-# VS Code and then re-run bootstrap.
-VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
-if [[ -d "$VSCODE_USER_DIR" ]] || find_app "Visual Studio Code.app" >/dev/null; then
-  mkdir -p "$VSCODE_USER_DIR"
-  link_config "$REPO_ROOT/.config/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
-  link_config "$REPO_ROOT/.config/vscode/keybindings.json" "$VSCODE_USER_DIR/keybindings.json"
-else
-  skip "VS Code config (VS Code not installed)"
-fi
+while IFS=$'\t' read -r src dest; do
+  mkdir -p "$(dirname "$dest")"
+  link_config "$src" "$dest"
+done < <(tracked_links "$REPO_ROOT")
+find_app "Visual Studio Code.app" >/dev/null || [[ -d "$HOME/Library/Application Support/Code/User" ]] \
+  || skip "VS Code config (VS Code not installed)"
 
 ./scripts/setup_shell.sh || true
 ./scripts/setup_git_identity.sh || true
