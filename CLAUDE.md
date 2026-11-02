@@ -46,6 +46,9 @@ structural changes.
   validation) to pass, then merge.
 - **New shell scripts must pass `shellcheck --severity=error`** (CI enforces this,
   across both `scripts/*.sh` and `scripts/lib/*.sh`).
+- **No Claude attribution on commits or PRs.** `.claude/settings.json` sets
+  `attribution` to empty strings and `sessionUrl: false`; don't add `Co-Authored-By`,
+  `Claude-Session` or "Generated with Claude Code" lines by hand either.
 - **Brewfile flags need the `HOMEBREW_` prefix.** `brew` strips other variables
   from the environment it evaluates the Brewfile in, so the no-admin switch is
   `HOMEBREW_DOTFILES_NO_ADMIN`, mirrored from `DOTFILES_NO_ADMIN` in `common.sh`.
