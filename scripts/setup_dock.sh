@@ -27,35 +27,24 @@ fi
 
 spacer() { dockutil --add '' --type spacer --section apps --no-restart >/dev/null; }
 
-# Groups are separated by spacers, but spacers are only placed once the next
-# group actually adds an app. A group whose apps are all missing (the Work group
-# on the personal Mac, or an app not installed yet) then leaves no gap, and the
-# Dock never starts or ends with a spacer. That is what makes the layout
-# conditional per machine without a profile switch: the work apps are only
-# installed on the work Mac, so only there does the Work group appear.
-#
-# `group wide` sets a group apart with a double spacer on both sides — again
-# only if it ends up with an app in it.
+# Groups are separated by a spacer, but it is only placed once the next group
+# actually adds an app. A group whose apps are all missing (the Work group on
+# the personal Mac, or an app not installed yet) then leaves no gap, and the Dock
+# never starts or ends with a spacer. That is what makes the layout conditional
+# per machine without a profile switch: the work apps are only installed on the
+# work Mac, so only there does the Work group appear.
 ANY_ADDED=0        # anything in the Dock yet?
-PENDING=0          # spacers to place before the next app
-CUR_WIDE=0         # is the current group a wide one?
-CUR_ADDED=0        # has the current group added an app?
+PENDING=0          # is a spacer waiting to go in before the next app?
 
-group() {
-  local want=1
-  [[ "${1:-}" == wide ]] && want=2
-  # The previous group was wide and not empty: it needs its double gap after it.
-  [[ "$CUR_WIDE" == 1 && "$CUR_ADDED" == 1 ]] && want=2
-  if [[ "$ANY_ADDED" == 1 ]]; then PENDING=$want; else PENDING=0; fi
-  [[ "${1:-}" == wide ]] && CUR_WIDE=1 || CUR_WIDE=0
-  CUR_ADDED=0
-}
+group() { PENDING=$ANY_ADDED; }
 
 add_path() {
-  while (( PENDING > 0 )); do spacer; PENDING=$((PENDING - 1)); done
+  if [[ "$PENDING" == 1 ]]; then
+    spacer
+    PENDING=0
+  fi
   dockutil --add "$1" --no-restart >/dev/null
   ANY_ADDED=1
-  CUR_ADDED=1
 }
 
 # Add an app by bundle name, wherever it is installed. Skips silently when the
@@ -115,8 +104,8 @@ add_app "ChatGPT.app"
 add_app "Claude.app"
 
 # 💼 Work — only the work Mac has these installed, so on the personal Mac the
-# whole group (and its double spacers) is skipped.
-group wide
+# whole group (and its spacer) is skipped.
+group
 add_app "zoom.us.app"
 add_app "Slack.app"
 add_app "Microsoft Outlook.app"
