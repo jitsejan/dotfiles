@@ -133,8 +133,7 @@ cask "visual-studio-code"
 cask "rectangle"            # window management
 cask "obsidian"             # note taking
 cask "beyond-compare"       # file comparison and management
-cask "shadow"               # AI notetaker (taperlabs) — not in Homebrew's cask repo,
-                            # tracked here as a marker; install manually from shadow.app
+cask "granola"              # AI meeting notepad — plain .app, installs to ~/Applications without admin
 cask "libreoffice"          # office suite
 
 # Browsers — usually pre-installed by IT on a managed Mac, so only install a
