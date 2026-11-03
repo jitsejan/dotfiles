@@ -6,6 +6,7 @@
         "uv": true
     },
     "atlascode.bitbucket.enabled": true,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
     "chat.viewSessions.orientation": "stacked",
     "atlascode.rovodev.showEntitlementNotifications": false
 }
