@@ -181,7 +181,8 @@ tracked_links() {
     "$repo/.config/starship.toml"          "$HOME/.config/starship.toml" \
     "$repo/.config/fish"                   "$HOME/.config/fish" \
     "$repo/.config/zsh"                    "$HOME/.config/zsh" \
-    "$repo/.config/git/personal.gitconfig" "$HOME/.config/git/personal.gitconfig"
+    "$repo/.config/git/personal.gitconfig" "$HOME/.config/git/personal.gitconfig" \
+    "$repo/.config/claude/CLAUDE.md"       "$HOME/.claude/CLAUDE.md"
   local vscode="$HOME/Library/Application Support/Code/User"
   if [[ -d "$vscode" ]] || find_app "Visual Studio Code.app" >/dev/null; then
     printf '%s\t%s\n' \
