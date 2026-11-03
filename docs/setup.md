@@ -38,6 +38,7 @@ dotfiles/
 │   ├── starship.toml        # prompt
 │   ├── obsidian/            # tracked Obsidian config (app, theme, plugins)
 │   ├── zsh/                 # zsh → fish handoff (no-admin machines)
+│   ├── claude/CLAUDE.md     # personal Claude Code rules → ~/.claude/CLAUDE.md
 │   └── vscode/              # settings.json + keybindings.json
 └── scripts/
     ├── bootstrap.sh         # orchestrator
@@ -390,6 +391,18 @@ Directory (cyan), git branch with a `*` dirty marker (green/orange), model
 `~/.claude/settings.json` is **not** tracked, because it holds MCP server tokens.
 So `scripts/setup_claude_statusline.sh` merges only the `statusLine` key into it,
 writing via a temp file and leaving every other key untouched.
+
+## Claude Code rules
+
+`.config/claude/CLAUDE.md` is linked to `~/.claude/CLAUDE.md`, the one Claude
+Code file that applies in every project: writing style, issue → branch → PR,
+outward actions, verification, secrets, Python with uv, and testing. A
+project's own `CLAUDE.md` overrides it.
+
+This repo is public, so nothing employer-specific goes in it. The file imports
+`~/.claude/local.md`, which is **not** tracked: put a machine's
+employer-specific defaults there (internal tools, house style, ticket system).
+A machine without that file just gets the general rules.
 
 ## Editor — VS Code
 
