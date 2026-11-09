@@ -18,6 +18,22 @@ live in an untracked file on each machine:
 - Lead with the answer or the recommendation. When there are options, say
   which one and why, instead of listing them all equally.
 
+## Visual work
+
+- Anything visual made for an organisation (pages, artifacts, dashboards,
+  diagrams, slides) uses that organisation's house style. Load its
+  `<org>-style` skill before designing. The directory often says which
+  organisation it is for; when it does not, ask.
+- A house style is derived from the organisation's own site, not invented.
+  Record in the skill where it came from and on what date, so a stale palette
+  is visible rather than silently wrong.
+- Typography and palette only. Never reproduce a logo.
+- Keep one worked example per organisation and link it from the skill, so the
+  next page starts from something real instead of a blank file.
+- Charts use the same tokens as the page around them. Hand `dataviz` the house
+  palette rather than letting it choose its own.
+- With no house style to work from, say so and use a plain neutral one.
+
 ## Tracking work
 
 - Every change starts from an issue: issue, then branch, then code. If the

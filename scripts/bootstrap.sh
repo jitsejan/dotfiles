@@ -91,6 +91,7 @@ find_app "Visual Studio Code.app" >/dev/null || [[ -d "$HOME/Library/Application
 ./scripts/setup_terraform.sh || true
 ./scripts/setup_git_filter_repo.sh || true
 ./scripts/setup_iterm2.sh || true
+./scripts/setup_claude.sh || true
 ./scripts/setup_claude_statusline.sh || true
 ./scripts/setup_dock.sh || true
 

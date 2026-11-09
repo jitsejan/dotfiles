@@ -404,6 +404,25 @@ This repo is public, so nothing employer-specific goes in it. The file imports
 employer-specific defaults there (internal tools, house style, ticket system).
 A machine without that file just gets the general rules.
 
+### Seeding the employer layer
+
+Without `~/.claude/local.md` the import dangles and the employer layer is
+silently empty, so `scripts/setup_claude.sh` seeds it from
+`.config/claude/templates/local.md`. On an interactive bootstrap it asks for the
+organisation and its homepage; press Enter to skip and fill the file in later.
+Set `DOTFILES_ORG` and `DOTFILES_ORG_URL` to answer without being asked, which
+is also how an unattended run supplies them — it never blocks on the prompt.
+
+Given an organisation it also stubs `~/.claude/skills/<org>-style/SKILL.md` from
+`.config/claude/templates/brand-style.SKILL.md`, pre-addressed to that homepage
+and dated. The stub is a skeleton with instructions, not a finished style: the
+palette and typography come from reading the site. Write **Character** first —
+two or three plain sentences about the register — because that is the part that
+decides whether a page looks right, and the part no scraper produces.
+
+Nothing is overwritten. Re-running reports what is already in place. Both the
+employer file and the style skill stay out of this repo.
+
 ## Editor — VS Code
 
 `.config/vscode/settings.json` + `keybindings.json` are symlinked into VS Code's
