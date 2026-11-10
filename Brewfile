@@ -144,11 +144,34 @@ cask "claude"
 
 # Document Processing
 brew "pandoc"
-brew "librsvg"      # rsvg-convert — SVG→PDF/PNG for pandoc & mermaid output
-# poppler has no relocatable bottle, so it builds from source in this user
-# prefix. It has no llvm build dep, so that is a short compile rather than
-# the multi-hour cascade node/opencode hit — acceptable for pdftotext etc.
-brew "poppler"      # pdftotext / pdfimages / pdfinfo
+# librsvg (rsvg-convert) and poppler (pdftotext, pdfimages, pdfinfo) are
+# commented out, not removed. Re-adding them is the third time, so the measured
+# reason is here rather than in a commit nobody reads.
+#
+# Neither pours in this prefix, and between them they queue ELEVEN source
+# builds: gobject-introspection, gdk-pixbuf, libthai, libx11, python@3.15,
+# openssl@4, git, gnupg, gpgme, libpq and poppler itself. An earlier note here
+# claimed poppler was "a short compile" because it has no llvm build dep. True
+# about llvm, wrong about the cost: the cascade arrives through the GTK stack
+# instead, and it rebuilds the toolchain git and python included.
+#
+# It also does not finish. gobject-introspection runs `python -m venv` during
+# its build, which dies inside Homebrew's sandbox because this prefix sits in
+# ~/Documents. HOMEBREW_NO_SANDBOX=1 does not lift it.
+#
+# Two separate causes, easy to conflate:
+#   - Pouring fails on prefix LENGTH. This prefix is 46 characters; the bottles
+#     reserve 13, which is exactly len("/opt/homebrew"). No path under
+#     /Users/<name>/ can ever be that short, so moving the prefix does not make
+#     these pour. Only admin and /opt/homebrew would.
+#   - Building fails on prefix LOCATION, inside ~/Documents, which breaks the
+#     sandbox. Moving the prefix to ~/.brew would fix this one.
+# So relocating the prefix would make the compiles succeed, not avoid them.
+#
+# If SVG or PDF conversion is ever needed, reach for a user-scoped tool that
+# needs no prefix relocation rather than un-commenting these.
+# brew "librsvg"
+# brew "poppler"
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
