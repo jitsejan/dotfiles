@@ -17,6 +17,8 @@ live in an untracked file on each machine:
   commits, PRs or comments.
 - Lead with the answer or the recommendation. When there are options, say
   which one and why, instead of listing them all equally.
+- A draft for me to send on (Slack, a PR comment, an email) is plain text with
+  ordinary headings, never wrapped in quote bars: they get copied along.
 
 ## Visual work
 
