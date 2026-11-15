@@ -112,7 +112,8 @@ that the current machine doesn't take.
 
 | Group | Packages |
 |-------|----------|
-| **Taps** | `hashicorp/tap` |
+| **Taps** | `hashicorp/tap`, `protonpass/tap` |
+| **Secrets** | age, sops, openbao, protonpass/tap/pass-cli |
 | **Shell & Terminal** | fish, starship, iterm2 |
 | **Core Dev** | act, awscli, docker-desktop *(colima + docker CLI without admin)*, dockutil, duckdb, gh, git, git-filter-repo, node, opencode, pipx, libpq, hashicorp/tap/terraform, terragrunt, tmux, uv, gcloud-cli |
 | **CLI Utilities** | bat, btop, cmatrix, eza, fd, fzf, glab, glow, jq, oha, qpdf, ripgrep, shellcheck, tree, zoxide |
@@ -140,6 +141,16 @@ HashiCorp relicensed it to the BUSL and homebrew-core dropped the formula — th
 entry has to be tap-qualified (`hashicorp/tap/terraform`) to work at all. If a
 tracked tool keeps turning up missing, check `brew info <name>` before assuming
 the install failed.
+
+**Third-party taps must be trusted.** Homebrew 7 refuses to load a formula from
+a tap outside homebrew-core until it is trusted, and `brew bundle` then skips
+it. `install_brew.sh` runs `brew trust --formula` on every tap-qualified formula
+in the Brewfile before the bundle. Trust is recorded in `~/.homebrew/trust.json`.
+
+**Proton Pass CLI.** `pass-cli login` once per machine. After that, keep
+`.env` files as references (`API_KEY=pass://Vault/Item/field`) and run
+`pass-cli run --env-file .env -- <command>`, or render a template with
+`pass-cli inject`. No secret values on disk.
 
 ## No-admin mode
 
