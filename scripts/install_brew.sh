@@ -113,6 +113,25 @@ fi
 # source build went unnoticed (#114). DOTFILES_QUIET=1 restores the terse output
 # for re-runs that have nothing new to install.
 BUNDLE_FLAGS=(--file="$REPO_ROOT/Brewfile")
+
+# Homebrew 7 refuses to load a formula from a third-party tap until it is
+# trusted, so `brew bundle` would skip hashicorp/tap/terraform and
+# protonpass/tap/pass-cli on a fresh machine. Trust the tap-qualified formulae
+# the Brewfile lists, and only those. Older Homebrew has no `brew trust`.
+if brew trust --help >/dev/null 2>&1; then
+  tap_formulae=()
+  while IFS= read -r f; do
+    [[ "$f" == */*/* ]] && tap_formulae+=("$f")
+  done < <(brew bundle list --formula "${BUNDLE_FLAGS[@]}" 2>/dev/null)
+  if ((${#tap_formulae[@]})); then
+    if brew trust --formula "${tap_formulae[@]}" >/dev/null; then
+      ok "Trusted tap formulae: ${tap_formulae[*]}"
+    else
+      warn "Could not trust ${tap_formulae[*]}; brew bundle will skip them."
+    fi
+  fi
+fi
+
 if [[ "${DOTFILES_QUIET:-0}" != "1" ]]; then
   BUNDLE_FLAGS+=(--verbose)
   echo "  (verbose: showing brew's output as it runs; set DOTFILES_QUIET=1 to hide it)"

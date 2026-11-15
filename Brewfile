@@ -36,6 +36,10 @@ end
 
 # Taps
 tap "hashicorp/tap"   # terraform — see the Core Development Tools note below
+tap "protonpass/tap"  # pass-cli, see Secrets & Encryption
+# Homebrew refuses formulae from third-party taps until they are trusted;
+# scripts/install_brew.sh trusts every tap-qualified formula below before
+# `brew bundle` runs.
 
 # Shell & Terminal
 brew "fish"
@@ -105,6 +109,11 @@ end
 brew "age"          # file encryption, used as the SOPS backend
 brew "sops"         # encrypted config/secret files
 brew "openbao"      # secrets management (Vault fork)
+# Proton Pass CLI: `pass-cli run --env-file` and `pass-cli inject` resolve
+# pass://vault/item/field references at run time, so .env files hold references
+# instead of values. The formula installs Proton's prebuilt binary (sha256
+# pinned, no dependencies), so nothing compiles in the user prefix.
+brew "protonpass/tap/pass-cli"
 
 # Command Line Utilities
 brew "bat"          # cat replacement
