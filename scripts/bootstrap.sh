@@ -93,6 +93,7 @@ find_app "Visual Studio Code.app" >/dev/null || [[ -d "$HOME/Library/Application
 ./scripts/setup_iterm2.sh || true
 ./scripts/setup_claude.sh || true
 ./scripts/setup_claude_statusline.sh || true
+./scripts/setup_claude_settings.sh || true
 ./scripts/setup_dock.sh || true
 
 # Anything substituted for lack of admin is named rather than silently dropped.

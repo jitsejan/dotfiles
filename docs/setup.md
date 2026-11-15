@@ -392,6 +392,22 @@ Directory (cyan), git branch with a `*` dirty marker (green/orange), model
 So `scripts/setup_claude_statusline.sh` merges only the `statusLine` key into it,
 writing via a temp file and leaving every other key untouched.
 
+## Claude Code hooks and settings defaults
+
+`scripts/setup_claude_settings.sh` merges the same way, adding only:
+
+- **Attribution off**: `attribution` with empty `commit` and `pr`, and
+  `sessionUrl: false`, so no Claude trailer, PR footer or session link anywhere.
+- **The pace gate**: `.config/claude/hooks/pace-gate.sh`, linked to
+  `~/.claude/hooks/pace-gate.sh`, runs before and after `gh pr merge` and
+  Redmine status changes. Merges must be 10 minutes apart with the target
+  repo's default branch green; status changes 60 seconds apart. The repo comes
+  from `-R` or the session's directory. Override the gaps with
+  `PACE_MERGE_GAP` and `PACE_STATUS_GAP`.
+
+A hook already in place is not added twice. Employer-specific hooks and skills
+stay out of this repo; add them from the employer's own setup.
+
 ## Claude Code rules
 
 `.config/claude/CLAUDE.md` is linked to `~/.claude/CLAUDE.md`, the one Claude
